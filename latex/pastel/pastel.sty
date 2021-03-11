@@ -1,0 +1,24 @@
+%%%% ---------- PACKAGES -----------
+\RequirePackage{xcolor}
+%%%% ---------- PARAMS ------------
+\newcounter{pcolors}
+
+\newcommand{\addpcolor}[3]{
+    \stepcounter{pcolors}
+    \definecolor{#1}{#2}{#3}%%
+}
+
+%%%% ---------- COLORS ------------
+\addpcolor{p-red}    {RGB}{255, 179, 186}%01
+\addpcolor{p-orange} {RGB}{255, 223, 186}%02
+\addpcolor{p-yellow} {RGB}{255, 255, 186}%03
+\addpcolor{p-green}  {RGB}{186, 255, 201}%04
+\addpcolor{p-blue}   {RGB}{186, 225, 255}%05
+\addpcolor{p-purple} {RGB}{215, 194, 255}%06
+\addpcolor{p-brown}  {RGB}{235, 165, 125}%07
+\addpcolor{p-caramel}{RGB}{246, 210, 148}%07
+\addpcolor{p-teal}   {RGB}{144, 218, 204}%07
+
+
+
+\endinput
