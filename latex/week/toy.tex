@@ -1,23 +1,48 @@
-\documentclass[br]{week}%%
+%% Usando cores pasteis em Português do Brasil
+\documentclass[br, pastel]{week}
 
-\title{Horários do Pedro 2020.2}
+%% Título e subtítulo
+\title{Horários do Pedro 2020.2 {\Large v1.0}}
 \subtitle{(22 mar. - 12 jun. 2021)}
 
+%% Horas do seu dia
 \sethours{5}{22}
 
 \begin{document}
     \begin{week}
-        \task[p-blue]{Redes II}{1}{10}{2}%
-        \task[p-blue]{Redes II}{3}{10}{2}%
-        \task[p-red]{Qualidade de\\ Software}{2}{10}{2}%
-        \task[p-red]{Qualidade de\\ Software}{4}{10}{2}%
-        \task[p-purple]{Álgebra Linear III}{2}{13}{2}%
-        \task[p-purple]{Álgebra Linear III}{4}{13}{2}%
-        \xtask[p-yellow]{Almoço}{1}{5}{12}{1}%
-        \task[p-orange]{Empreendedorismo}{5}{13}{4}%
-        \task[p-yellow]{Programação\\ Avançada}{1}{17}{2}%
-        \task[p-yellow]{Programação\\ Avançada}{3}{17}{2}%
+        %% A hora é simplesmente o número da hora que a atividade acontece.
+        %% Os dias são informados por números:
+        %%  0 - Domingo
+        %%  1 - Segunda
+        %%  2 - Terça
+        %% e assim por diante.
 
-        \task[p-teal]{Reunião\\ Priscila}{2}{15}{2}%
+        %% \xtask[<cor>]{<titulo>}{<dia>}{<dias>}{<hora>}{<horas>}
+        \xtask[brown]{Café \& Secretaria}{1}{5}{6}{2}%
+
+        %% \xtask[<cor>]{<titulo>}{<dia>}{<hora>}{<horas>}
+        \task[cyan]{Redes II}{1}{10}{2}%
+        \task[cyan]{Redes II}{3}{10}{2}%
+
+        %% Em nomes grandes pode ser preciso usar '\\' para qubra de linha.
+        \task[blue]{Qualidade de\\ Software}{2}{10}{2}%
+        \task[blue]{Qualidade de\\ Software}{4}{10}{2}%
+        \task[darkblue]{Monitoria\\ Computação Gráfica}{5}{9}{2}
+
+        %% Use esse comando para atividades que se expandem horizontalmente.
+        \xtask[brown]{Almoço}{1}{5}{12}{1}%
+
+        \task[yellow]{Álgebra Linear III}{2}{13}{2}%
+        \task[yellow]{Álgebra Linear III}{4}{13}{2}%
+        
+        %% Também é possível usar horas quebradas sem problemas.
+        \task[darkgreen]{Empreendedorismo}{5}{13.5}{4}%
+
+        \task[orange]{Reunião\\ Priscila}{2}{15}{2}%
+
+        \task[red]{Programação\\ Avançada}{1}{17}{2}%
+        \task[red]{Programação\\ Avançada}{3}{17}{2}%
+        
+        \task[orange]{PowerPointers}{1}{20}{1.5}
     \end{week}
 \end{document}

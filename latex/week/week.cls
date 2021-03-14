@@ -22,6 +22,20 @@
     \setboolean{debug}{true}
 }
 
+%% Pastel
+\newboolean{pastel}
+\setboolean{pastel}{false}
+\DeclareOption{pastel}{%
+    \setboolean{pastel}{true}
+}
+
+%% Hide
+\newboolean{hide}
+\setboolean{hide}{false}
+\DeclareOption{hide}{%
+    \setboolean{hide}{true}
+}
+
 %% Language
 \def\ulang{en}%%
 \DeclareOption{en}{%
@@ -199,12 +213,32 @@
     \end{switch}%%
 }
 
-\newcommand\task[5][p-blue]{%%
+\newcommand\task[5][blue]{%%
     \xtask[#1]{#2}{#3}{1}{#4}{#5}%%
 }
 
-\newcommand\xtask[6][p-blue]{%%
-    \draw [fill=#1, draw=#1, rounded corners] (#3 * \w + \w + \pxl, -#5 * \h - \h - \pyt + \param@hour * \h) rectangle (#3 * \w + \w + #4 * \w + \pxl, -#5 * \h - #6 * \h - \h - \pyt + \param@hour * \h) node[midway, align=center] {#2};
+\newenvironment{hidetasks}{
+    \setboolean{hide}{true}
+}{%%
+    \setboolean{hide}{false}
+}
+
+\newenvironment{showtasks}{
+    \setboolean{hide}{false}
+}{%%
+    \setboolean{hide}{true}
+}
+
+\newcommand\xtask[6][blue]{%%
+    \ifthenelse{\boolean{hide}}{
+        \draw [fill=gray!30, draw=gray!30, rounded corners] (#3 * \w + \w + \pxl, -#5 * \h - \h - \pyt + \param@hour * \h) rectangle (#3 * \w + \w + #4 * \w + \pxl, -#5 * \h - #6 * \h - \h - \pyt + \param@hour * \h) node[midway, align=center] {};
+    }{%%
+        \ifthenelse{\boolean{pastel}}{
+            \draw [fill=\pastel{#1}, draw=\pastel{#1}, rounded corners] (#3 * \w + \w + \pxl, -#5 * \h - \h - \pyt + \param@hour * \h) rectangle (#3 * \w + \w + #4 * \w + \pxl, -#5 * \h - #6 * \h - \h - \pyt + \param@hour * \h) node[midway, align=center] {#2};
+        }{%%
+            \draw [fill=#1, draw=#1, rounded corners] (#3 * \w + \w + \pxl, -#5 * \h - \h - \pyt + \param@hour * \h) rectangle (#3 * \w + \w + #4 * \w + \pxl, -#5 * \h - #6 * \h - \h - \pyt + \param@hour * \h) node[midway, align=center] {#2};
+        }
+    }
 }
 
 \endinput
