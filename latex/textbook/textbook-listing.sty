@@ -1,0 +1,184 @@
+\ProvidesPackage{textbook-listing}
+    \RequirePackage{listings}
+    
+    \DeclareOption*{%
+        \PackageWarning{textbook-listings}{Unknown ‘\CurrentOption’}
+    }
+    
+    \ProcessOptions\relax
+
+    %% For use with the literate
+    \newcommand*{\shifttext}[2]{%
+        \settowidth{\@tempdima}{#2}%
+        \makebox[\@tempdima]{\hspace*{#1}#2}%
+    }
+
+    \newcommand*{\litdot}[0]{%literate dot
+        \shifttext{0.1ex}{.}%%
+    }
+
+    \newcommand*{\afseries}[0]{%%
+        \fontseries{b}\selectfont
+    }
+
+    %% ------------------- PYTHON COLOURS ------------------
+    \newcommand*{\pybasicstyle}{%%
+        \ttfamily\color{pybasic}
+    }
+
+    \newcommand*{\pynamestyle}{%%
+        \bfseries\color{pynames}
+    }
+
+    \newcommand*{\pythonprompt}{
+        \ifnum\lst@mode=\lst@Pmode
+            \textcolor{pyprompt}{{>}{>}{>}}
+        \else%%
+            {>}{>}{>}
+        \fi
+    }
+
+    \newcommand*{\pythonellipsis}{
+        \ifnum\lst@mode=\lst@Pmode
+            \textcolor{pyprompt}{{\litdot}{\litdot}{\litdot}}
+        \else%%
+            {\litdot}{\litdot}{\litdot}
+        \fi
+    }
+
+    \newcommand*{\pykeywordstyle}{%%
+        \color{pykeywords}
+    }
+
+    \newcommand*{\pybuiltinstyle}{%%
+        \color{pybuiltins}
+    }
+
+    \newcommand*{\pystringstyle}{%%
+        \color{pystrings}
+    }
+
+    \newcommand*{\pycommentstyle}{%%
+        \color{pycomments}
+    }
+    %% ------------------- PYTHON COLOURS ------------------
+
+    %% ------------------- LITERAL CHARACTERS --------------------
+    \def\addlstliterate#1{%%
+        \edef\lst@literate{%%
+            \unexpanded\expandafter{\lst@literate}\unexpanded{#1}%%
+        }
+    }
+
+    \lst@Key{moreliterate}{}{\addlstliterate{#1}}
+
+    \lstdefinestyle{literalstyle}{ %%
+        mathescape=true,
+        extendedchars=true,
+        inputencoding=utf8,
+        literate=%%
+            {ã}{{\~a}}1                         {õ}{{\~o}}1 
+            {Ã}{{\~A}}1                         {Õ}{{\~O}}1 
+            {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+            {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+            {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+            {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+            {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+            {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+            {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+            {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+            {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+            {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+            {€}{{\EUR}}1 {£}{{\pounds}}1
+            {.}{\litdot}1
+            {~}{{{\raisebox{0.5ex}{\texttildelow}}}}1
+            {^}{{{\raisebox{-0.5ex}{\textasciicircum}}}}1
+            {√}{{{\raisebox{0.5ex}{$\sqrt{}$}}}}1
+            {≈}{{$\approx$}}1
+            {∫}{{$\int$}}1 {∞}{{$\infty$}}1
+            {α}{{$\alpha$}}1 {β}{{$\beta$}}1  {γ}{{$\gamma$}}1 {ε}{{$\epsilon$}}1
+            {ω}{{$\omega$}}1 {σ}{{$\sigma$}}1 {δ}{{$\delta$}}1 {Δ}{{$\Delta$}}1
+            {π}{{$\pi$}}1    {θ}{{$\theta$}}1 {η}{{$\eta$}}1   {ξ}{{$\xi$}}1	
+            {¹}{{$^1$}}1     {²}{{$^2$}}1     {³}{{$^3$}}1     {⁴}{{$^4$}}1     {⁵}{{$^5$}}1
+    }
+    %% ------------------- LITERAL CHARACTERS --------------------
+
+    %% ------------------- BASE STYLE --------------------
+    \lstdefinestyle{basestyle}{ %%
+        style=literalstyle,
+        basicstyle=\ttfamily,
+        numberblanklines=true,
+        showstringspaces=false,
+        breakatwhitespace=false,
+        breaklines=true,
+        xleftmargin=\parindent,
+        stepnumber=1,
+        numbers=left,
+        frame=single,
+        tabsize=4,
+        gobble=4
+    }
+    %% ------------------- BASE STYLE --------------------
+
+    
+    %% ------------------- PYTHON STYLE --------------------
+    \lstdefinestyle{pythonstyle}{
+        %% Inheritance
+        style=basestyle,
+        %% Language selection
+        language=python,
+        %% Basic config
+        alsoletter={1234567890},
+        %
+        %% Highlighting - Tokens
+        keywords={%%
+        False, None, True, __peg_parser__, and, as, assert, async, await, break, class, continue, def, del, elif, else, except, finally, for, from, global, if, import, in, is, lambda, nonlocal, not, or, pass, raise, return, try, while, with, yield%%
+        },
+        emph={%%
+        %% builtins
+        abs, delattr, hash, memoryview, set, all, dict, help, min, setattr, any, dir, hex, next, slice, ascii, divmod, id, object, sorted, bin, enumerate, input, oct, staticmethod, bool, eval, int, open, str, breakpoint, exec, isinstance, ord, sum, bytearray, filter, issubclass, pow, super, bytes, float, iter, print, tuple, callable, format, len, property, type, chr, frozenset, list, range, vars, classmethod, getattr, locals, repr, zip, compile, globals, map, reversed, __import__, complex, hasattr, max, round,%%
+        %% builtin Exceptions
+        BaseException, SystemExit, KeyboardInterrupt, GeneratorExit, Exception, StopIteration, StopAsyncIteration, ArithmeticError, FloatingPointError, OverflowError, ZeroDivisionError, AssertionError, AttributeError, BufferError, EOFError, ImportError, ModuleNotFoundError, LookupError, IndexError, KeyError, MemoryError, NameError, UnboundLocalError, OSError, BlockingIOError, ChildProcessError, ConnectionError, BrokenPipeError, ConnectionAbortedError, ConnectionRefusedError, ConnectionResetError, FileExistsError, FileNotFoundError, InterruptedError, IsADirectoryError, NotADirectoryError, PermissionError, ProcessLookupError, TimeoutError, ReferenceError, RuntimeError, NotImplementedError, RecursionError, SyntaxError, IndentationError, TabError, SystemError, TypeError, ValueError, UnicodeError, UnicodeDecodeError, UnicodeEncodeError, UnicodeTranslateError, Warning, DeprecationWarning, PendingDeprecationWarning, RuntimeWarning, SyntaxWarning, UserWarning, FutureWarning, ImportWarning, UnicodeWarning, BytesWarning, ResourceWarning%%
+        },
+        %
+        %% Highlighting - Styles
+        basicstyle={\pybasicstyle},
+        stringstyle={\pystringstyle},
+        keywordstyle={\pykeywordstyle},
+        emphstyle={\pybuiltinstyle},
+        commentstyle={\pycommentstyle},
+        %
+        moreliterate=%
+            {>>>}{\pythonprompt}{3}%
+            {...}{\pythonellipsis}{3}%
+        ,%
+        %aboveskip=.5ex,
+        frame=trbl,
+        %frameround=tttt,
+        %framesep=.3ex,
+        numberstyle=\color{fg},
+        rulecolor=\color{black!20},
+        backgroundcolor=\color{pybg},
+        breakindent=.5\textwidth,frame=single,breaklines=true%
+        %}
+    }
+
+\newcommand*{\inputpython}[3]{%%
+    \lstinputlisting[%%
+        firstline=#2,%
+        lastline=#3,%
+        firstnumber=#2,%
+        frame=single,%
+        breakindent=.5\textwidth,%
+        frame=single,%
+        breaklines=true,%
+        style=mypython%
+    ]{#1}}%
+
+\lstnewenvironment{lstpython}[1][]{%%
+    \lstset{style=pythonstyle}
+}{%%
+    %% Do Nothing at all
+}%%
+
+\newcommand*{\lstpy}[1]{\lstinline[style=pythonstyle]{#1}}%%

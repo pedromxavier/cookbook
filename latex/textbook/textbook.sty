@@ -1,0 +1,17 @@
+\ProvidesPackage{textbook}
+    %% ----- PACKAGES ------
+    \RequirePackage{courier}
+
+    %% ----- LOCAL ---------
+    \RequirePackage{textbook-colors}
+    \RequirePackage{textbook-listing}
+
+    %% Remove this later
+    \newcommand{\code}[1]{\texttt{#1}}
+    \newcommand{\type}[1]{\textcolor{pybuiltins}{\texttt{#1}}}
+    \newcommand{\stmt}[1]{\textcolor{pykeywords}{\texttt{#1}}}
+    \newcommand{\str}[2]["]{\textcolor{pystrings}{\texttt{#1#2#1}}}
+    
+
+    
+\endinput

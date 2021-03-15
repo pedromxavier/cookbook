@@ -1,0 +1,156 @@
+\chapter{Tipos, Variáveis, Operadores e Funções}
+
+	\section*{Introdução}%%
+	É interessante, de fato, iniciar o estudo da computação através das funções. As funções trazem consigo os conceitos de tipos e variáveis de maneira muito natural. De maneira simples, uma função pode ser compreendida como a transformação dos dados de entrada nos dados de saída, cada qual com seus respectivos tipos. \par
+	
+	A noção de tipo está também relacionada à ideia de conjunto. Ser de um determinado tipo é pertencer a um conjunto, mais especificamente ao conjunto daquele tipo. Isto fica bem claro quando se pensa nos números, embora seja um conceito adequado a uma miríade de situações. \par
+	%%
+	\input{tikz-src/conjuntos.tikz}
+	%%
+	Em textos de matemática a nível superior, é comum que as funções recebam outros nomes a depender do contexto. Uma nomeclatura um tanto elucidativa é chamar funções de \textit{aplicações}, em inglês, \textit{mappings}. É de bom gosto observar que as funções são \textit{mapas} que levam de um ponto em um conjunto noutro ponto de outro conjunto. \par
+
+	\section*{Variáveis e atribuição}%%
+	\begin{lstpython}
+	>>> x = 0
+	>>> y = 1
+	>>> x + y
+	1
+	\end{lstpython}
+
+	\section*{Funções}%%
+	Para definir uma função vamos utilizar o comando \stmt{def}, seguido do nome da função, dos seus parâmetros e, por fim, o código que deve executar.
+	\begin{lstpython}
+	>>> def f(x, y):
+	...		return x + y
+	...
+	>>> z = f(2, 3)
+	>>> z
+	5
+	\end{lstpython}
+
+    \begin{problem}{Cálculo I - Limites}
+		Seja $f : \R \to \R $ uma função diferenciável.
+	\end{problem}
+
+
+	\begin{problem}{Música I - As notas e os sons}
+		Cada nota musical corresponde a uma frequência distinta (em Hz). Tomando o lá central (A4) como referência, em 440Hz, podemos calcular a frequência das outras notas com base na distância relativa a essa nota.
+        $$f(n) = 440 \times 2^{(n/12)}$$
+        Na tabela abaixo, vemos as notas musicais, seus símbolos, e a distância em semitons\footnote{Dois semitons equivalem a um tom. No violão, cada casa de uma mesma corda está a um semitom da casa adjacente. No piano, quando há uma tecla preta entre as brancas, há uma distância de um tom entre elas. Quando a tecla preta não está, a distância é de meio tom, ou um semitom.} para o lá central (A4).
+
+		\begin{center}
+            \begin{tabular}{|l|c c c c c c c c c c c|}
+                \hline
+                Símbolo &  & F3 & G3 & A4 & B4 & C4 & D4 & E4 & F4 & G4 & \\
+                Nome & ... & fá & sol & lá & si & dó & ré & mi & fá & sol &  ... \\
+                Semitons &  & -4 & -2 & 0 & 2 & 3 & 5 & 7 & 8 & 10 & \\
+                \hline
+            \end{tabular}
+        \end{center}
+
+		Você pode notar que a cada 12 semitons, a nota se repete com o dobro da frequência. Chamamos este intervalo entre notas de oitava. Na notação acima, a cada letra indica uma nota diferente, enquanto o número diz a oitava em que ela se encontra. \par
+        
+		\proposal
+        Faça uma função \texttt{f(n)} que retorne a frequência em Hertz de uma nota que se encontra a \texttt{n} semitons de distância do lá central. Arredonde o resultado para o número inteiro mais próximo usando as funções \type{round} e \type{int}. \par
+        
+        \begin{lstpython}
+	>>> f(0), f(2), f(3)
+	(440, 494, 523)
+	>>> f(12) # frequência dobra ...
+	880
+        \end{lstpython}
+	\end{problem}
+
+    \begin{problem}{Coordenadas polares}
+        
+        Estamos acostumados a pensar em coordenadas cartesianas na hora de descrever a geometria de um determinado objeto. No entanto, o sistema de coordenadas deve ser escolhido conforme o cenário em que se está trabalhando.
+        
+        \input{tikz-src/cartesiano.tikz}
+        
+        O ponto $(4, 3)$, quando escrito em coordenadas polares, nos dá:
+        \begin{align*}
+        r &= \sqrt{4^2 + 3^2} = \sqrt{16 + 9} = \sqrt{25} = 5\\
+        \theta &= \arctan\frac{3}{4} = 0.6435 \text{ rad} \approx 36.87^{\circ}
+        \end{align*}
+        
+        \proposal
+		Construa duas funções: \texttt{polar(x, y)} levará um ponto em coordenadas cartesianas $(x, y)$ para a forma polar $(r, \theta)$ e \texttt{cart(r, theta)}, que fará o caminho contrário.\par
+        
+        \begin{lstpython}
+    >>> import math
+    >>> polar(-1, 0)
+    (1.0, 3.141592653589793)
+    >>> cart(2, math.pi)
+    (-2.0, 0.0)
+        \end{lstpython}
+        
+    \end{problem}
+
+	\section*{Condicionais}%%
+	Uma das ferramentas mais simples e poderosas dos computadores é a sua capacidade de tomar diferentes atitudes mediante uma condição. 
+
+	\begin{problem}{Meia-entrada}%%
+		
+	A Lei Federal nº 12933/2013, também conhecida como Lei da Meia-Entrada, garante o benefício do pagamento de Meia-Entrada para estudantes, pessoas com deficiência e jovens, de baixa renda, com idade entre 15 e 29 anos. Já a Lei Federal nº 10741/2003, mais conhecida como Estatuto do Idoso, as pessoas com idade igual ou superior a 60 anos tem direito à Meia-Entrada para eventos artísticos e de lazer. Aqui no estado do Rio de Janeiro, contamos ainda com a Lei Estadual RJ n° 3.364/00, que garante o benefício a todos os menores de 21 anos. \par
+	
+	\proposal Escreva a função \texttt{meia\_entrada} que receba os parâmetros:
+	\begin{enumerate} 
+		\item \texttt{idade} (\type{int})
+		\item \texttt{estudante} (\type{bool})
+		\item \texttt{deficiencia} (\type{bool})
+		\item \texttt{baixa\_renda} (\type{bool})
+	\end{enumerate}
+	informando com \stmt{True} ou \stmt{False} se a pessoa tem direito ao desconto. normal,
+    
+	\begin{lstpython}
+    >>> meia_entrada(60, False, False, False)
+    True
+    >>> meia_entrada(30, True, False False)
+    False
+    >>> meia_entrada(20, False, False, False)
+    True
+	\end{lstpython}
+	\end{problem}
+
+
+	\section*{Repetição}
+
+	\begin{problem}{Sequência de \emph{Collatz}}    
+	A sequência de \emph{Collatz} é obtida aplicando sucessivamente a função
+	{\large
+		\begin{align*}
+		f(n) = \begin{cases}
+		3\, n + 1, &\text{ se } n \text{ for ímpar}\\
+		n \div 2, &\text{ se } n \text{ for par}
+		\end{cases}
+		\end{align*}
+	}
+	Por exemplo, começamos com $n = 26$. Após sucessivas aplicações temos:
+	$$26 \to 13 \to 40 \to 20 \to 10 \to 5 \to 16 \to 8 \to 4 \to 2 \to 1$$
+	Isso nos dá uma sequência com $11$ números. $40$ é maior que $26$, mas sua sequência só teria $9$ números.\par
+
+	Ainda não se sabe se todos os números induzem uma sequência que termina em $1$. No entanto, até agora não foi encontrado um número sequer em que isso não tenha acontecido! \par
+
+	\proposal Faça uma função que calcule o comprimento da sequência gerada a partir de um número natural $n$ qualquer. \par
+	
+	\begin{lstpython}
+	>>> collatz(26)
+	11
+	>>> collatz(40)
+	9
+	>>> collatz(1)
+	1
+	\end{lstpython}
+	\end{problem}
+
+	\begin{problem}{\textit{Chatbot} I}
+	Existe uma história corrente de que o grande motor da inteligência artificial em escala industrial é o uso indiscriminado do comando \stmt{if} e seus derivados.
+	\end{problem}
+
+	\section*{Decoradores}
+	Agora é hora de voltar a falar em funções. 
+
+	\section*{Parâmetros}
+	Agora é hora de voltar a falar em funções.
+
+\endinput

@@ -1,0 +1,19 @@
+\ProvidesPackage{textbook-translate}
+    \RequirePackage{translator}
+    \newcommand{\setulang}[1]{\renewcommand\@ulang{#1}}%%
+    \newcommand{\@ulang}{en}%%
+    
+    \newcommand{\setuptranslate}{
+        \uselanguage{\@ulang}
+        \languagepath{\@ulang}
+    }
+
+    %%%% PT_BR
+    \deftranslation[to=br]{Proposal}{Proposta}%
+    \deftranslation[to=br]{Preface}{Prefácio}%%
+
+    %%%% DE
+    \deftranslation[to=de]{Proposal}{Vorschlag}%
+    \deftranslation[to=de]{Preface}{Vorwort}%%
+
+\endinput

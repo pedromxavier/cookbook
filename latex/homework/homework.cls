@@ -436,6 +436,29 @@
 %%
 %% ------------------------------------ Fortran ------------------------------------
 
+%% ------------------------------------ Python ------------------------------------
+%%
+\lstdefinestyle{pythonstyle}{ %%
+	style=basestyle,
+	language={Python},
+	morekeywords={%  
+		match
+	},
+}
+
+\lstnewenvironment{python}[1][\empty]{%%
+	\ifx#1\empty
+	\def\thistitle{\unskip}%
+	\else
+	\def\thistitle{.: #1}%
+	\fi
+	\stepcounter{algors}
+	\lstset{style=pythonstyle, title={Código \thealgors\thistitle}}
+	}{%%
+}
+%%
+%% ------------------------------------ Python ------------------------------------
+
 %% ---------------------- MAKETITLES ------------------------
 \renewcommand{\maketitle}[1][\empty]{%%
 	\maketitle*[#1]

@@ -1,0 +1,423 @@
+\documentclass[12pt]{article}
+
+	
+
+
+	
+\begin{lstlisting}
+class Bidict(dict):
+    def __init__(self, mapping={}):
+        dict.__init__(self, mapping)
+    ...
+>>> bd = Bidict()
+>>> bd["a"] = 4
+>>> bd[3] = "d"
+>>> print(bd)
+{"a":4, 4:"a", 3:"d", "d":3}
+\end{lstlisting}
+
+	Lembrando que se um objeto não puder ser chave de um dicionário, ele também não poderá ser um valor do bidicionário!
+	
+	\problem[1]{Ora Bolas!}
+	
+	Mais um exercício pra esquentar: Crie uma classe chamada \texttt{Bola} que deve implementar objetos com as seguintes características:
+	
+	\begin{enumerate}
+		\item O raio nominal da bola.
+		\item A pressão de ar máxima (em $bar$).
+		\item A pressão de ar atual. (em $bar$).
+		\item A condição da bola (furada ou não).
+		\item Uma onomatopeia correspondente ao barulho que a bola faz quando quica, e outra para caso ela fure.
+		\item A probabilidade da bola furar quando quica.
+	\end{enumerate}
+	
+	Além disso, tendo uma bola em mãos você deve poder:
+	
+	\begin{enumerate}
+		\item Quicar! Caso ela não esteja vazia.
+		\item Encher em alguma quantidade de $bar$, passada como argumento da função, caso ela não esteja furada. Se você encher de mais ela deve furar!
+		\item Calcular o seu volume.
+	\end{enumerate}
+	
+	Feita a bola, você deve criar uma classe \texttt{BolaQuadrada} que herde as propriedades de uma bola comum, mas tenha as adaptações necessárias para o seu formato. Ela deve, por exemplo, ter $50\%$ de chance de quicar em uma tentativa.\\
+	
+	Faça também a classe \texttt{BolaDeFesta}, que deve furar sempre que quicar. Dê a ela um som de estouro interessante.
+	
+	\problem[1]{Frações}
+	Um número racional $r \in \mathbb{Q}$ é aquele que pode ser escrito como: 
+	\[r = \frac{p}{q} ; p,q \in \mathbb{Z} ; q \neq 0\]
+	\textbf{Desafio:} Crie uma classe \texttt{Fracao} que implemente as seguintes operações e métodos:
+	\begin{enumerate}
+		\item Um método que simplifique a fração.
+		\item As operções:
+		\begin{itemize}
+			\item \texttt{+} (\spm{add})
+			\item \texttt{-} (\spm{sub})
+			\item \texttt{*} (\spm{mul})
+			\item \texttt{**} (\spm{pow})
+			\item \texttt{/} (\spm{truediv})
+			\item \texttt{-} (\spm{neg})
+			\item \texttt{\til} (\spm{invert}).
+		\end{itemize}
+		\item \spm{repr} que retorna \texttt{"p|q"}.
+		\item \spm{float}, que calcula a divisão em ponto-flutuante.
+	\end{enumerate}
+
+	\begin{lstlisting}
+class Fracao(object):
+    
+    def __init__(self, p, q):
+        assert type(p) is int
+        assert type(q) is int
+        assert q != 0
+        ...	        
+	\end{lstlisting}
+	
+	\problem[2]{Polinômios \cite{esperanca}}
+	Um polinômio de grau $n$ é aquele da forma
+	\[p(x) = \sum_{i=0}^{n} a_{i} x^{i}=a_{0} + a_{1}x + \dots + a_{n} x^{n}.\]
+	\textbf{Desafio:} Sabendo isso, faça uma classe \texttt{Polinomio} que implemente:
+	\begin{enumerate}
+		\item A definição de um coeficiente do polinômio através do método \spm{setitem}, ou seja, \texttt{p[2] = 3} faria com que o coeficiente $a_{2}$ do polinômio $p$ tivesse valor $3$.
+		
+		\item O cálculo do grau do polinômio $p$, que deve ser retornado quando chamamos \type{len}\texttt{(p)}.
+		
+		\item A soma, a subtração e a multiplicação usual de polinômios usando os operadores da linguagem (\texttt{+},\texttt{-},\texttt{*}), que deve retornar um novo objeto da classe \texttt{Polinomio}.
+		
+		\item E por fim, a avaliação da função num ponto $x$, usando o método especial \spm{call}.
+	\end{enumerate}
+	
+	\textbf{Desafio Bônus:}
+	\begin{enumerate}
+		\item O método especial \spm{repr} que deve retornar uma \type{string} que represente o polinômio $2 + x + 3x^{2}$ na forma \texttt{"2 + x + 3x\^{}2"}, por exemplo.
+		\item Duas funções, \texttt{Polinomio.integral} e \texttt{Polinomio.derivada} que retornem os respectivos polinômios resultantes destas operações.
+		
+		\item Divisão de polinômios (\texttt{f/g} e \texttt{f\%g}) , que devem retornar respectivamente o quociente $q(x)$ e o resto $r(x)$ tais que $f(x) = g(x) q(x) + r(x)$.
+	\end{enumerate}
+	
+%	\begin{interlude}{Conjuntos}
+%	
+%	No \texttt{Python} temos um tipo muito bacana, mas muito mesmo, chamado \type{set}. Esse carinha simula um conjunto do ponto de vista matemático, ou seja, é uma coleção de objetos distintos. Um \type{set} pode ser criado usando-se outro objeto ou informando os elementos entre colchetes:
+%	
+%	\begin{lstlisting}
+%	>>> A = set([1,2,3])
+%	>>> B = {x for x in range(2,5)}
+%	>>> A
+%	set([1, 2, 3])
+%	>>> B
+%	set([2, 3, 4])
+%	>>> A - B
+%	set([1])
+%	>>> A | B
+%	set([1, 2, 3, 4])
+%	\end{lstlisting}
+%	
+%	O \type{set} permite realizar diversas operações entre conjuntos, sendo as mais importantes: a diferença (\texttt{-}), a união (\texttt{|}, \emph{ou binário}) e a interseção (\texttt{\&}, \emph{e binário}). 
+%	
+%	\end{interlude}
+%	
+%	\problem[5]{Grupos}
+%	
+%	Em Álgebra, um Grupo $G = (A, \ast)$ é formado por um conjunto $A$ e uma operação qualquer $\ast$, quando valem as seguintes regras:
+%	
+%	\begin{enumerate}
+%		\item $(a \ast b) \in A \,\,\, \forall a,b \in A$ [O grupo é fechado para a operação.]
+%		\item $\exists \, e \in A : e \ast a = a \ast e = a \,\,\, \forall a \in A$ [Existe o elemento neutro.]
+%		\item $\exists \, a^{-1} \in A : a \ast a^{-1} = a^{-1} \ast a = e \,\,\, \forall a \in A$ [Existe o elemento inverso.]\\
+%	\end{enumerate}
+%	Construa um objeto \texttt{Grupo} que herda as características do \type{set}. Devem ser passados ao construtor: os elementos em uma coleção \texttt{A}, e uma função \texttt{f(a,b)} que realiza a operação $\ast$ sobre dois elementos do Grupo.
+%	
+%	\begin{lstlisting}
+%def f(a,b):
+%    return (a + b) % 5
+%    
+%class Grupo(set):
+%    def __init__(self, A, f):
+%        ...
+%
+%	    def __hash__(self):
+%        	return hash(tuple(self))
+%        
+%>>> G = Grupo([0,1,2,3,4], f)
+%>>> G
+%{0, 1, 2, 3, 4}
+%>>> H = Grupo([0,1,2], f)
+%Traceback (most recent call last):
+%    File "<pyshell#1>", line 1, in <module>
+%        raise Exception('Isso não é grupo!')
+%Exception: Isso não é grupo!
+%	\end{lstlisting}
+%	
+%	Sabido isso:
+%	\begin{enumerate}
+%		\item O construtor deve criar um erro quando as regras de Grupo não forem atendidas.
+%		\item A visualização do grupo mostre os elementos entre colchetes usando o método \spm{repr}.
+%	\end{enumerate}
+%
+%	\subsubsection{Subparte I: Produto}
+%	O produto entre dois grupos é dado da seguinte forma:
+%	\[GH := \{g \ast h : g \in G, h\in H\} \]
+%	Defina o método \spm{mul} para atender a esse propósito.
+%	
+%	\subsubsection{Subparte II: Quociente}
+%	Existe uma operação entre grupos chamada \emph{quociente} definida por:
+%	\[G/H := \{gH : g \in G\} = \{\{g \ast h: h \in H\} : g \in G\}\]
+%	Essa operação deve retornar um \emph{conjunto de grupos} e isso só é possível se o método \spm{hash} estiver definido como no modelo. Implemente essa operação usando o método \spm{truediv}.
+%	
+%	\subsubsection{Subparte III: Subgrupos}
+%	Um Subgrupo $H$ de um Grupo $G$, que escrevemos $H < G$, é aquele cujo conjunto é subconjunto de $G$ e é $H$ também um Grupo. O tipo \type{set} já implementa os operadores \texttt{>}, \texttt{>=}, \texttt{<}, \texttt{<=} e \texttt{==} comparando dois objetos do ponto de vista dos conjuntos. Reescreva os métodos \spm{gt}, \spm{ge}, \spm{lt}, \spm{le} e \spm{eq}, respectivamente, para dizer verificar, por exemplo, se \texttt{H} é subgrupo de \texttt{G} através da expressão \texttt{H < G}.
+%	Feito isso, construa um método da classe \texttt{Grupo} que retorne um conjunto contendo todos os subgrupos de um grupo \texttt{G}.\\
+%	\\
+%	\textbf{Dica} Teorema: \\
+%	O \emph{Teorema de Lagrange} diz que sendo $G$ um grupo finito e $H$ um subgrupo de $G$, a ordem de $H$ divide a ordem de $G$.
+%	\[H < G \implies |G| = |H| \cdot k, k \in \mathbb{N}\]
+%	A ordem de um grupo $G$, escrita como $|G|$, é simplesmente o número de elementos em $G$, que pode ser obtida diretamente pela expressão \type{len}\texttt{(G)}.
+%	
+%	\pagebreak
+	
+	\begin{interlude}{\texttt{Beep}}
+	
+	Um jeito fácil de fazer barulho no computador é usando a função \texttt{Beep}. Se você usa o \texttt{Python} no \texttt{Windows} boas notícias: você só vai precisar importar a função \texttt{Beep} do módulo \texttt{winsound}.\\
+	\\
+	\texttt{>>> Beep(440, 1000)}
+	\begin{lstlisting}
+# windows
+from winsound import Beep
+	\end{lstlisting}
+	Pra turminha do \texttt{Linux}, que precisa construir a função: \\
+	\texttt{\$ sudo apt-get install beep}
+	\begin{lstlisting}
+# linux
+import os
+def Beep(f, ms):
+    os.system("beep -f %i -l %i" % (f, ms))
+	\end{lstlisting}
+	
+	\end{interlude}
+
+	\problem[3]{Quaterniões!}
+	
+	Não contente com os números complexos ($\mathbb{C}$) da forma $z = a + b\mb{i}$, a turma da matemática trouxe pra gente um ser ainda mais esquisito: o conjunto dos \emph{Quaternions} ($\mathbb{H}$).
+	
+	\begin{align*}
+	q \in \mathbb{H} \iff q &= a + b \mb{i} + c \mb{j} + d \mb{k} : \, a,b,c,d \in \mathbb{R}\\
+	\mb{i} \times \mb{j} &= -(\mb{j} \times \mb{i}) = \mb{k}\\
+	\mb{j} \times \mb{k} &= -(\mb{k} \times \mb{j}) = \mb{i}\\
+	\mb{k} \times \mb{i} &= -(\mb{i} \times \mb{k}) = \mb{j}\\
+	\mb{i} \times \mb{j} \times \mb{k} &= -1	
+	\end{align*}
+	
+	\quest Com regras de soma convencionais, similares aos números reais e complexos, mas com uma multiplicação que mais parece o produto externo entre vetores, implemente uma classe \texttt{Quaternion}, que é criada a partir dos seus $4$ coeficientes reais e implementa:
+	\begin{enumerate}
+		\item O operador de soma \texttt{+} (\spm{add})
+		\item A subtração \texttt{-} (\spm{sub})
+		\item A multiplicação \texttt{*} (\spm{mul})
+		\item O método \spm{repr} que imprima na tela, para $q = 3 + 4\mb{j} - 2\mb{k}$, a \textit{string} \texttt{(3.00) + (0.00)i + (4.00)j + (-2.00)k}
+	\end{enumerate}
+	
+	\textbf{Bônus:}
+	\begin{enumerate}
+		\item O módulo do quaternião, através da função \texttt{\type{abs}(q)}, implementada pelo método especial \spm{abs}
+		\item A divisão \texttt{\slash} (\spm{truediv})
+	\end{enumerate}
+
+	\textbf{Dica:} Implemente os métodos \spm{invert} e \spm{neg} para auxiliar na definição de \spm{truediv} e \spm{sub}, respectivamente.
+	
+	\problem[5]{Funções}
+	
+	Funções do \texttt{Python} já existem e são um objeto bem definido. Agora nós queremos representar funções matemáticas de uma forma mais legal: Estamos interessados em um classe que permita diversas operações entre funções.
+	
+	\chap{Interface Gráfica (\texttt{tkinter})}
+	
+	\problem[3]{O Bilhar do Infinito \incomplete}
+	
+	Um bilhar é, de maneira abstrata, um retângulo onde bolas
+
+	\quest Em um \texttt{Canvas}, construir um bilhar.
+	
+	
+	\problem[4]{Preenchendo o Espaço \incomplete}\label{p:hilbert}
+	
+	Curvas de Hilbert	
+	
+	\problem[4]{Números Primos II \incomplete}
+	
+	Muitas figuras interessantes se formam a partir dos números primos.
+	
+	\quest Vamos usar o mesmo programa da questão anterior [\ref{p:hilbert}], mas com uma singela modificação: Definimos um contador e, a cada passo, a pintura só ocorre se o número for primo. Em seguida, incrementamos o contador e seguimos adiante!
+	
+	
+	
+		
+	\problem[3]{O Triângulo de Sierpinsky}
+	
+	A figura a seguir chama-se \emph{Triângulo de Sierpinsky}:
+	
+	\figura[height=200pt]{sierpinsky.png}{Triângulo de Sierpinsky}
+
+	Ela é composta por triângulos equiláteros dispostos de forma que cada triângulo contém três outros em seu interior, cada um com $\frac{1}{2}$ do lado do triângulo original.\\
+	
+	\textbf{Desafio:} Desenhe essa forma usando o \texttt{tkinter} ou o \texttt{turtle}. Crie uma função para compôr a figura de forma recursiva.
+	
+	\problem[3]{Pôr-do-Sol \cite{jonas}}
+	
+	Todos os dias o Sol se põe no horizonte da mesma maneira.\\
+	
+	\textbf{Desafio:} Faça uma vizualização do pôr-do-Sol no \texttt{tkinter}, da forma que quiser. Se você não se sente muito inspirado, segue a receita do bolo:
+	
+	\begin{enumerate}
+		\item Crie um \texttt{Canvas}. \textbf{Dica:} uma vez criado o \texttt{Canvas}, posicione ele com o método \texttt{pack}, passando as opções \texttt{expand=\stmt{True}} e \texttt{fill=\str{both}} para que o \texttt{Canvas} ocupe toda a tela.
+		\item Faça primeiro o céu. Você pode criar um retângulo ou simplesmeste alterar a propriedade \texttt{bg} do \texttt{Canvas} (cor do \textit{background}).
+		
+		\item Em seguida, desenhe o Sol. O seu movimento aparente no horizonte é bem descrito por um seno (ou cosseno).
+		
+		\item Hora de fazer o horizonte. A linha fica bem no meio da tela, mas isso fica a seu critério. Um retângulo na parte inferior já é suficiente, mas você também pode compor diversos círculos ou triângulos para dar forma ao relevo, como em uma colagem.
+		
+	\end{enumerate}
+
+	\begin{lstlisting}
+import tkinter as tk
+
+class Janela:
+	def __init__(self, root):
+		self.root = root
+		
+		self.canvas = tk.Canvas(self.root)
+		self.canvas.pack(expand=True, fill="both")
+		
+		...
+		
+root = tk.Tk()
+self = Janela(root)
+root.mainloop()
+	\end{lstlisting}
+
+	\problem[2]{O Método de Monte Carlo}
+	
+	O Método de \emph{Monte Carlo} funciona da seguinte forma: Se temos uma determinada região e queremos calcular sua área, basta fazer com que ela esteja contida em uma outra região cuja área é conhecida. Em seguida, sorteamos pontos aleatórios $P_{i} = (x_{i}, y_{i})$ e contamos quantos pontos caem dentro da região que estamos avaliando. Assim:
+	
+	$$ \frac{A_{figura}}{A_{total}} \approx \frac{P_{dentro}}{P_{total}} \to A_{figura} \approx \frac{P_{dentro}}{P_{total}} \times A_{total} $$
+
+	Queremos então calcular a área de um círculo cujo raio é $1$. Sabemos de antemão que valor da área é $\pi$, e vamos então usar o método acima para estimar o seu valor numérico.\\
+
+	Faça duas janelas usando o \texttt{tkinter}. A primeira mostra onde os pontos estão sendo posicionados, colorindo os que caem dentro de \textcolor{blue}{azul} e os que caem fora de \textcolor{red}{vermelho}. Na segunda tela, mostre em tempo real a aproximação para a área em azul conforme os pontos vão sendo posicionados. \\
+	
+	\figura[width=\textwidth]{monte_carlo.png}{Cálculo de $\pi$ pelo método de Monte Carlo}
+	
+	\problem[2]{A proporção áurea}
+	
+	\[0\ 1\ 1\ 2\ 3\ 5\ 8\ 13\ 21\ 34\ 55\ 89\ ... \]	
+	Muitos conhecem esse conjunto de números, a famosa \emph{Sequência de Fibonacci}, que tem seu $n$-ésimo número definido por:
+	\begin{align*}
+	\begin{cases}
+	F_{n} = F_{n-1} + F_{n-2}\\
+	F_{0} = 0 \ e \ F_{1} = 1
+	\end{cases}
+	\end{align*}
+	
+	Se tomamos a razão entre dois números de \emph{Fibonacci} consecutivos obtemos, no limite, um número que já era conhecido pelos gregos como símbolo da beleza e da perfeição da natureza.
+	$$\varphi = \lim_{n \to \infty} \frac{F_{n+1}}{F_{n}}= \frac{1+\sqrt{5}}{2} \approx 1.618 $$
+	Sabido isso, sua tarefa é gerar a figura abaixo, usando o módulo que preferir, mas de forma recursiva. Para que os gregos realmente fiquem contentes com a majestade da sua figura é preciso que ela esteja conforme a proporção dada por $\varphi$.
+	
+	\figura[height=200pt]{golden_ratio.png}{A proporção áurea}
+	
+	\problem[3]{Música IV - O Piano}
+	
+	\textbf{Desafio:} Use os resultados das etapas enteriores (\textbf{Musica I, II e III}) e construa um Piano Virtual com o \texttt{tkinter}. Você pode desenhar as teclas em um \texttt{Canvas} e usar o método \texttt{Canvas.bind} para associar letras como \texttt{a,s,d,f,g,h,j} e \texttt{k} às teclas brancas e \texttt{w,e,t,y} e \texttt{u} às pretas, por exemplo. Outra forma de fazer é usar o \textit{widget} \texttt{Button} para fazer cada tecla.
+
+	\chap{Métodos numéricos (\texttt{numpy})}
+
+	\problem[3]{Redes Neurais \incomplete}
+
+	\begin{interlude}{Aritmética de ponto-flutuante (\type{float})}
+	
+	Agora que vamos utilizar o \texttt{numpy} é importante falar um pouco mais sobre o nosso antigo conhecido, o \type{float}. Existe um padrão industrial, o \textbf{IEE 754}, que especifica a representação numérica em ponto-flutuante.\\
+	
+	Um \type{float} possui três partes:	o \textit{bit} do sinal, o expoente, e a mantissa (ou fração). O número é positivo quando o primeiro \textit{bit} é 0, e negativo quando é 1. O tamanho do expoente e da mantissa depende de diversos fatores, como o projeto do processador, a linguagem de programação e até mesmo das decisões do programador.
+	
+	\begin{figure}[H]
+	\centering
+	\small
+	\makelist{0} \makelist{01111000} \makelist{0100000000000000000000}
+	\caption{O número 0.15625 no padrão IEE 754, precisão simples.}
+	\end{figure}
+	
+	É possível fazer uma analogia com a notação científica. Vamos observar o número de moléculas em um mol de uma substância qualquer:
+	
+		$$1 \text{mol} = 6.02 \times 10^{23}$$
+
+	De maneira imediata, podemos separar esse número em três partes também: o sinal ($+$), o expoente (23), e a mantissa (6.02).\\
+	
+	É importante entender que as representações em ponto-flutuante tem suas limitações. Algumas delas são:
+	
+	\begin{itemize}
+	\item Somar ou subtrair números muito grandes com números muitos pequenos resultará numa \textbf{adição/subtração catastrófica}, isto é, o número menor pode acabar sendo ignorado durante a operação.
+	
+	\item A mantissa é composta pela soma de potências de $\frac{1}{2}$, portanto números que não são resultado de somas finitas dessas potências vão apresentar erros de representação.
+	\end{itemize}
+	
+	\end{interlude}
+	
+	\problem[5]{Computação Quântica \incomplete}
+	
+	\subsection*{Computação Quântica numa casca de noz}
+	
+	Na mecânica quântica, existe uma série de fenômenos interessantes.
+	
+	\begin{figure}[H]
+		\centering\Large
+		$$\ket{\uparrow} + \ket{\downarrow} \hspace{40pt} \ket{\text{A}} + \ket{\Omega} \hspace{40pt} \ket{0} + \ket{1}$$
+	\caption{Superposição}
+	\end{figure}
+	
+	
+	\chap{Plotagem de Gráficos (\texttt{matplotlib})}
+	
+	\begin{interlude}{\texttt{nan} e \texttt{inf}}
+	
+	Um outro tópico interessante de se falar, ainda no escopo da \textbf{aritmética de ponto-flutuante} (\type{float}), é a presença de três números especiais no padrão \textbf{IEE 754}: \texttt{nan}, \texttt{inf} e \texttt{-inf}.\\
+	
+	Como o nome já indica, \texttt{inf} e \texttt{-inf} são usados pra representar o infinito positivo $\infty$ e o negativo $-\infty$, respectivamente. É comum que surjam durante operações de divisão por zero, ou alguma outra operação que exceda a precisão do expoente.\\
+	
+	O \texttt{nan} (\textit{\textbf{n}ot \textbf{a} \textbf{n}umber}), por sua vez, é fruto de operações indeterminadas, como $\infty - \infty$ e $\frac{0}{0}$. É particularmente útil para representar valores ausentes. Quando presente em um \texttt{array} que será usado para plotar um gráfico, o \texttt{Matplotlib} simplesmente ignora as entradas, criando lacunas na curva desenhada.\\
+	
+	É possível obter esses números usando a função \type{float}, passando como parâmetro o nome do número desejado:
+	
+	\begin{lstlisting}[caption='\texttt{nan} e \texttt{inf}']
+>>> x = float("inf")
+>>> y = float("nan")
+>>> z = float("-inf")
+	\end{lstlisting}
+	
+	\end{interlude}
+	
+	\problem[2]{Ying-Yang}
+	
+	Parte positiva de uma cor e parte negativa de outra.	
+	
+	
+	\chap{Conexão e Redes (\texttt{socket})}
+	
+	\begin{interlude}{\texttt{ipconfig}/\texttt{ifconfig}}
+	
+	\begin{lstlisting}
+$\text{\$}$ ifconfig
+	\end{lstlisting}
+	
+	\begin{lstlisting}
+> ipconfig
+	\end{lstlisting}	
+	
+	\end{interlude}
+
+	\problem[1]{MSN}
+	
+	\problem[2]{RPG \ROMAN{2}}
+	
+	\begin{thebibliography}{99}
+	%\bibitem{lcarvalho} Prof. Leonardo Carvalho (2015)
+	\bibitem{asad} Prof. Pedro Asad (2016)
+	\bibitem{brunno} Prof. Brunno Goldstein (2016)
+	\bibitem{esperanca} Prof. Claudio Esperança (2018)
+	\bibitem{jonas} Prof. Jonas Knopman (2018)
+	\end{thebibliography}

@@ -1,0 +1,892 @@
+    
+        \problem[0]{Números de Fibonacci e a proporção áurea}
+    
+        A proporção áurea, muitas vezes representada pela letra grega $\varphi$ (phi), ficou conhecida ainda na grécia antiga por representar um padrão de beleza estética. Sua presença se mostrou marcante também na construção artística renascentista e se encontra até hoje em objetos do cotidiano como nas telas de celulares e nos cartões de crédito.
+        
+        \input{fibonacci.tikz}
+        
+        A constante numérica que representa a razão áurea está intimamente ligada a uma sequência de números também há muito conhecida:
+        $$0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...$$
+        Esta sequência foi descoberta por Fibonacci enquanto estudava a reprodução dos coelhos. Depois disso, padrões dessa forma foram encontrados em vários outros processos da natureza, desde a forma dos girassóis até as ramificações das algas marinhas. A sequência começa com o 0 e o 1. Para calcular qualquer outro número, basta somar os seus dois antecessores. A proporção áurea, por sua vez, é aproximada pela razão entre dois números de Fibonacci consecutivos:
+        $$\varphi \approx \frac{F_{i+1}}{F_{i}}$$
+        A aproximação fica melhor conforme os números escolhidos se tornam maiores.\\
+        
+        \quest Faça uma função que calcule o $n$-ésimo número de Fibonacci. Em seguida use a função que você criou para calcular uma aproximação da razão áurea.
+        
+        
+        
+        \pagebreak
+        
+        \section{Aula II - Condicionais \\(\stmt{if}, \stmt{elif}, \stmt{else}, \type{bool}, \stmt{True}, \stmt{False})}
+        
+        \problem[0]{Dentro do círculo\label{sec:2.1}}
+        
+        O círculo unitário é aquele que tem raio $1$ e se encontra centrado na origem $(0, 0)$ do plano cartesiano.
+        
+        \input{circulo.tikz}
+        
+        \quest Faça uma função que diga se um ponto $(x, y)$ se encontra dentro ou fora do círculo unitário, retornando \stmt{True} ou \stmt{False} respectivamente.\\
+        
+        \example
+        \begin{lstlisting}
+    >>> dentro(1, 1)
+    False
+    >>> dentro(0, 0)
+    True
+    >>> dentro(1, 0)
+    True
+    >>> dentro(0.5, 0.5)
+    True
+        \end{lstlisting}
+        
+        \pagebreak
+        
+        \problem[0]{Intersecção de Retângulos}
+        
+        Uma maneira simples de representar retângulos em um computador é através de um par de pontos, onde cada ponto é um par ordenado $(x, y)$. Por convenção, o primeiro ponto indica o canto superior esquerdo do retângulo; e o segundo, o canto inferior direito.\\
+        
+        \input{retangulos.tikz}
+        
+        Assim, o retângulo \textcolor{blue}{\textbf{azul}} pode ser descrito pelos pares $(1, 4)$ e $(5, 2)$, enquanto o retângulo \textcolor{red}{\textbf{vermelho}} é dado pelos pontos $(3, 3)$ e $(6, 1)$. A intersecção entre os dois é justamente a área \textcolor{indigo}{\textbf{lilás}} que se encontra entre os pontos $(3, 3)$ e $(5, 2)$. \\
+        
+        \quest Fazer uma função que, dados dois retângulos, retorna a intersecção entre eles, ou seja, um outro retângulo ou \stmt{None}, caso não haja sobreposição.\\
+        
+        \clue Utilize as funções \type{max} e \type{min}.\\
+        
+        \example
+        \begin{lstlisting}
+    >>> A = (1, 4, 5, 2)
+    >>> B = (3, 3, 6, 1)
+    >>> C = intersec(A, B)
+    >>> print(C)
+    (3, 3, 5, 2)
+        \end{lstlisting}
+        
+        \pagebreak
+        
+        \problem[0]{Anos bissextos}
+        
+        A humanidade sempre teve problemas com a contagem dos anos, uma vez que estes duram 365,24 dias. O calendário Juliano, que vigorou de 45 a.C. até 1582 d.C., introduziu o uso dos anos bissextos acrescentou um dia a cada 3 anos. O erro só foi percebido décadas depois e o acréscimo foi abandonado. Isso fez com que se acumulasse um erro de cerca de 10 dias até o momento da transição para o calendário Gregoriano. Por conta disso, os dias entre 4 e 15 de outubro de 1582 simplesmente não existiram.\\
+        
+        Com este novo calendário foi definida a nova regra para o cálculo dos anos bissextos:
+        
+        \begin{itemize}
+            \item De 4 em 4 anos é ano bissexto.
+            \item De 100 em 100 anos não é ano bissexto.
+            \item De 400 em 400 anos é ano bissexto.
+            \item Prevalecem as últimas regras sobre as primeiras.
+        \end{itemize}
+        
+        \quest Sabendo que o ano 2000 foi bissexto, crie uma função que, dado um ano, informe se ele é bissexto ou não, retornando \stmt{True} ou \stmt{False}, respectivamente.\\
+        
+        \example
+        \begin{lstlisting}
+    >>> bissexto(2000)
+    True
+    >>> bissexto(2100)
+    False
+    >>> bissexto(2104)
+    True
+        \end{lstlisting}
+        
+        \pagebreak
+        
+        
+        
+        \pagebreak
+        
+        \section{Aula III - Listas e Loops \\(\stmt{while}, \stmt{for}, \type{list})}
+        
+        
+        \pagebreak
+        
+        \problem[0]{Crivo}
+        
+        O Eratóstenes foi um cara que viveu em 200 a.C., inventou um crivo e calculou a curvatura da terra.
+        \figura[height=80pt]{eratostenes.png}{Eratóstenes de Cirene}
+        Um \textbf{crivo} é uma forma de saber quem são os números primos até um determinado limite $\mb{N}$. O Crivo de Eratóstenes funciona de forma bem simples:
+        
+        \begin{enumerate}
+            \item Escrevemos em uma tabela todos os números de 0 até $\mb{N}$.
+    
+            \item Riscamos o 0 e o 1 e andamos para o 2.
+    
+            \item Se um número não estiver riscado, riscamos todos os múltiplos deste, menos o próprio.
+            
+            \item Andamos para o próximo número e repetimos a etapa anterior (3).		
+        \end{enumerate}
+        
+        Uma maneira interessante de fazer isso é criando uma lista \texttt{L} de tamanho $\mb{N} + 1$, ou seja, cujos índices vão de 0 até $\mb{N}$. Nessa lista, a princípio, supomos que todos os números são primos, então todas as suas entradas serão \stmt{True}. Riscar um número significa transformar uma entrada em \stmt{False}\\
+        
+        \quest Implemente o crivo de Eratóstenes, retornando uma lista com os números primos entre 0 e $\mb{N}$.\\
+        
+        \example
+        \begin{lstlisting}
+    >>> crivo(10)
+    [2, 3, 5, 7]
+    >>> crivo(20)
+    [2, 3, 5, 7, 11, 13, 17, 19]
+        \end{lstlisting}
+        
+        \pagebreak
+        
+        \problem[0]{Troco}
+        
+        Abaixo temos as moedas atualmente em circulação no Brasil. Como não temos mais a moeda de 1 centavo, não é possível dar troco para qualquer quantia. Por exemplo, se um estabelecimento deve R\$ 0,91 de troco a um cliente, este daria 95 centavos de volta, conforme recomenda o PROCON.
+        \figura[width=200pt]{moedas.png}{Moedas em circulação no Brasil}
+        Quando se trabalha com dinheiro no computador, é comum fazer operações com centavos, e não com o valor usual da moeda. Assim, utiliza-se o tipo \type{int} em vez de usar o \type{float}, que pode trazer problemas de arredondamento.\\
+        
+        \quest Faça uma função que, dada uma quantia qualquer em centavos, retorne uma lista contendo a quantidade de cada moeda, de maneira a utilizar a menor quantidade de moedas possível.\\
+        
+        \clue Começe com uma lista contendo os valores das moedas, em centavos.\\
+        
+        \begin{lstlisting}
+    moedas = [100, 50, 25, 10, 5]
+        \end{lstlisting}	
+        ~\\
+        \example
+        \begin{lstlisting}
+    >>> troco(200)
+    [2, 0, 0, 0, 0]
+    >>> troco(91) # aqui daremos 95 centavos de troco!
+    [0, 1, 1, 2, 0]
+        \end{lstlisting}
+        \pagebreak
+        
+        \section{Aula IV - Matrizes e Aleatoriedade}
+        
+        \problem[0]{Viagem pela Europa}
+        
+        O jogo Viagem pela Europa\footnote{É um jogo bastante antigo e que não se encontra mais nas lojas. Para se ter uma ideia, no mapa aparece a Alemanha ainda dividida nas porções Ocidental e Oriental.} tem um mapa com diversas cidades ligadas por caminhos. Quando começa, cada jogador recebe uma série de cartas e tem que passar por todas elas, cumprindo o roteiro na ordem que preferir. A cada turno se joga um dado, que diz quantas cidades o jogador pode ir adiante.
+        
+        \figura[width=200pt]{viagem-pela-europa.png}{Caixa do Jogo Viagem Pela Europa}
+        
+        Podemos representar o tabuleiro do jogo usando uma matriz $A$ de dimensão $N \times N$, onde $N$ é o número de cidades. Assim, o valor da posição \code{A[i][j]} será 1 caso exista um caminho entre as cidades \code{i} e \code{j}, e 0 no caso contrário.\\
+        
+        \quest Faça uma função, que dada uma matriz \code{A} representando o tabuleiro, diga se existe uma ligação entre duas cidades, \code{i} e \code{j}, mesmo que passando por outras no percurso.\\
+    
+        \example
+        \begin{lstlisting}
+    >>> A = [[ 1, 0, 0, 1, 0],
+             [ 0, 1, 0, 0, 1],
+             [ 0, 0, 1, 0, 1],
+             [ 1, 0, 0, 1, 0],
+             [ 0, 1, 1, 0, 1]]
+        \end{lstlisting}
+        
+        Em um caso simplificado, essa matriz representa o seguinte tabuleiro:
+        
+        \input{tabuleiro.tikz}
+        
+        Dessa forma, teríamos:
+        \begin{lstlisting}
+    >>> tem_caminho(A, 0, 1)
+    False
+    >>> tem_caminho(A, 0, 3)
+    True
+    >>> tem_caminho(A, 1, 2) # Passando pela cidade `4`
+    True
+        \end{lstlisting}
+    
+        \textbf{Desafio Bônus:} Para uma matriz \code{A}, e para um par de cidades \code{i} e \code{j}, faça uma outra função que calcule a menor distância entre as duas, segundo o mapa representado por \code{A}. Quando não houver caminho possível, lembre de retornar \stmt{None}\\
+        
+        \example
+        \begin{lstlisting}
+    >>> distancia(A, 0, 1)
+    None
+    >>> distancia(A, 0, 3)
+    1
+    >>> distancia(A, 1, 2) # Passando pela cidade `4`
+    2
+        \end{lstlisting}
+    
+        \pagebreak
+        
+        \problem[0]{Gerando números aleatórios}
+        
+        Quando pensamos em gerar números aleatórios, temos em mente duas características: Um intervalo de ocorrência desses números e a sua distribuição. Por enquanto, vamos ficar com uma distribuição uniforme, isto é, os números em um intervalo $[a, b]$ tem igual probabilidade de serem gerados.
+        
+        \input{distribuicoes.tikz}
+        
+        Simplificando as coisas, vamos gerar inteiros aleatórios dentre $m$ possibilidades (números entre $0$ e $m-1$). Para tal, partindo de um número inteiro $x_0$ (seed) qualquer, calculamos $x_1$ segundo a fórmula:
+        $$x_{i+1} = (p \times x_i + q) \mod m\footnote{A expressão "x mod y" (lê-se: "x módulo y") significa calcular o resto da divisão de x por y}$$
+        Ao calcular o resto da divisão por $m$, garantimos que o novo número gerado estará no intervalo que desejamos. Os parâmetros $p$ e $q$ é que vão definir se o gerador de números aleatórios será um bom ou não. Por exemplo, se $p = q = 1$, temos um gerador percorre todos os números, mas que não passada de um contador, nem um pouco aleatório.\\
+        
+        Existem condições para se ter um bom gerador:
+        \begin{itemize}
+            \item $q \neq 0$
+            \item $m$ e $q$ primos entre si\footnote{$x$ e $y$ são primos entre si se e somente se mdc($x$, $y$) = 1, ou seja, não tem nenhum divisor em comum.}
+            \item $p - 1$ divisível por todos os fatores primos de $m$
+            \item $p - 1$ divisível por 4 se $m$ for divisível por 4.
+        \end{itemize}
+        O gerador fica melhor quanto menos divisores $p - 1$ e $m$ tiverem em comum, além dos necessários.\\
+    
+        \quest Encontre parâmetros $p$ e $q$ que satisfaçam estas condições, para um $m$ escolhido e, em seguida, faça o seu próprio gerador de números eleatórios.\\
+        
+        \clue Escolha um $m$ que seja potência de $2$. $2^{32} = 4294967296$ pode ser uma boa opção. \\
+        
+        Para fazer com que os números sorteados se encontrem no intervalo $[0, 1]$, basta calcular $x_i / m$. \\
+        
+        \textbf{Outro Desafio:} Faça uma função que, a partir dos números no intervalo $[0, 1]$, gere números nem um intervalo $[a, b]$.
+        
+        \hfill
+        
+        \pagebreak
+        
+        \problem[0]{Calculando $\pi$}
+        
+        Uma maneira, dentre muitas outras, de se calcular a área qualquer de uma região do plano é conhecida como Método de Monte Carlo. Esta técnica já é amplamente conhecida e seu estudo já se tornou bastante sofisticado. Mesmo assim, sua ideia fundamental pode ser compreendida facilmente.\\
+        
+        Temos uma região sombreada (em \textbf{\textcolor{blue}{azul}}) e queremos saber sua área. Sorteamos então 20 pontos aleatoriamente dentro do quadrado $6 \times 6$ que envolve a figura.
+        
+        \input{regiao.tikz}
+        
+        Estão coloridos em \textbf{\textcolor{cyan}{ciano}} os pontos que caíram dentro da região e temos em \textbf{\textcolor{magenta}{magenta}} aqueles que ficaram do lado de fora. Podemos então dizer que a razão entre os pontos que caíram dentro e o total sorteado se aproxima da razão entre a área hachurada e a área do quadrado. Isso nos dá uma fórmula para aproximar a área que desejamos calcular:
+        
+        $$\text{Área}_{\resizebox{12pt}{!}{\begin{tikzpicture}\makeregion\end{tikzpicture}}} \approx \text{Área}_{\square} \times \frac{\text{\textbf{\textcolor{cyan}{dentro}}}}{\text{\textbf{\textcolor{cyan}{dentro}}} + \text{\textbf{\textcolor{magenta}{fora}}}}$$
+        
+        \quest Agora pense no caso de um círculo de raio 1 inscrito em um quadrado $2 \times 2$. Utilize a técnica acima para calcular a sua área, que pode ser usada para obter uma aproximação do número $\pi$. Quanto mais pontos sortearmos, melhor será a aproximação.\\
+        
+        \clue Relembre o exercício\bref{sec:2.1} em que você dizia se um ponto pertencia ou não ao interior de um círculo unitário.
+
+        \chap{Funções e Recursividade (\stmt{def}, \stmt{return})}
+	
+	\begin{interlude}{Argumentos de funções, \texttt{*args} e \texttt{**kwargs}}
+	
+	Oberseve esta forma de definir uma função:
+	\begin{lstlisting}
+def f(x, *y, **z):
+	print(x)
+	print(y)
+	print(z)
+...
+>>> f(0, 1, 2, 3, penúltimo=4, último=5)
+0
+(1, 2, 3)
+{'penúltimo' : 4, 'último' : 5}
+	\end{lstlisting}
+	
+	Pode parecer um tanto confuso de início, mas o que estamos falando aqui é de parâmetros opcionais (\texttt{*args}) e de parâmetros nomeados (\textit{keyword args}, ou \texttt{**kwargs}).
+	
+	\subsubsection*{1 - \texttt{*args}}
+	
+	Quando um dos parâmetros de uma função é precidido por um asterisco (\texttt{*}), ele passa a armazenar uma quantidade indeterminada de valores em uma tupla (\type{tuple}).
+	
+	\subsubsection*{2 - \texttt{**kwargs}}
+	
+	Atua de forma bem semelhante ao anterior, mas em vez de receber valores comuns, este receberá pares na forma \texttt{chave=valor} que serão guardados em um dicionário (\type{dict}).\\
+	
+	De um ponto de vista mais filosófico, pensamos \texttt{*} e \texttt{**} como operadores de \textbf{desempacotamento}. De fato eles tem muitos usos. Podemos simplesmente desempacotar uma lista dentro da outra:
+	
+	\begin{lstlisting}
+>>> x = [1, 2, 3]
+>>> y = [0, *x, 4]
+>>> print(y)
+[0, 1, 2, 3, 4]
+	\end{lstlisting}
+	
+	E o mesmo vale pra dicionários:
+	
+	\begin{lstlisting}
+>>> x = {1: 'b', 2: 'c', 3: 'd'}
+>>> y = {0: 'a', **x, 4: 'e'}
+>>> print(y)
+{0: 'a', 1: 'b', 2: 'c', 3: 'd', 4: 'e'}
+	\end{lstlisting}
+	
+	Mas também existem outros usos, como separar o primeiro e o último elemento do restante de uma lista (\type{list}):
+	
+	\begin{lstlisting}
+>>> L = ['a', 'b', 'c', 'd']
+>>> x, *y, z = L
+>>> x
+'a'
+>>> y
+['b', 'c']
+>>> z
+'d' 
+	\end{lstlisting}
+	
+	\end{interlude}
+	
+	\problem[1]{?}
+	
+	\problem[1]{?}
+	
+	\begin{interlude}{Funções são objetos}
+	
+	No \texttt{Python} quase tudo é objeto. O conceito de objeto vai ficar mais claro no curso de \href{https://github.com/pedromxavier/monitoria/raw/master/tex/comp2.pdf}{Computação II}. O importante agora é saber que uma função não é tão diferente dos outros tipos, como os inteiros (\type{int}), listas (\type{list}) e strings (\type{str}). Isso tem uma implicação imediata: podemos passar funções como parâmetros pra outras funções. Isso pode ser muito útil, como veremos mais adiante, para definir funções a partir de outras, como no caso das derivadas, integrais e dos campos vetoriais, por exemplo.
+	
+	\end{interlude}	
+	
+	\problem[1]{Fibonacci \textit{X-treme}}
+	
+	A sequência de Fibonacci é definida por
+	\begin{align*}
+		\begin{cases}
+		F_{n} = F_{n-1} + F_{n-2}\\
+		F_{0} = 0 \text{ e } F_{1} = 1
+		\end{cases}
+	\end{align*}
+	
+	O $n$-ésimo termo pode ser obtido pela função
+
+	\begin{lstlisting}[caption="Fibonacci"]
+def f(n):
+	if n == 0:
+		return 0
+	elif n == 1:
+		return 1
+	else:
+		return f(n-1) + f(n-2)
+	\end{lstlisting}
+	
+	\quest Tente encontrar, usando a função acima, o número $F_{50}$. Reflita um pouco sobre o resultado. O que aconteceu?
+	
+	\problem[3]{Nibonacci \label{p:nibonacci}}
+	
+	O $n$-ésimo termo da sequência de Nibonacci é dado por
+	\begin{align*}
+		\begin{cases}
+		\displaystyle N_{n} = \sum_{k=1}^{N} N_{n-k}\\
+		N_{0} = 0 \text{ e } N_{j} = 1 \text{ quando } 0 < j \leq N
+		\end{cases}
+	\end{align*}
+	
+	\begin{interlude}{Decoradores \label{i:decoradores}}
+	
+	Decoradores são funções que proporcionam uma maneira simples de alterar o funcionamento de uma função no momento da sua definição. Um decorador recebe uma função como parâmetro e dever retornar também uma função.
+	
+	\begin{lstlisting}
+def mod3(f):
+	def g(x):
+		return f(x) % 3
+	return g
+	
+@mod3
+def f(x):
+	return x ** 2 + 1
+	\end{lstlisting}
+	
+	O decorador acima, \texttt{@mod3}, faz com que o resultado da função decorada seja calculado módulo 3.
+	
+	\end{interlude}
+	
+	\problem[3]{Tempo}
+	
+	Agora que já sabemos como construir uma função e decorá-la, podemos fazer um decorador que nos ajude a medir o tempo que uma função leva pra rodar. Para isso, a melhor ideia é usar a função \texttt{clock}, do módulo \texttt{time}, que agora no \texttt{Python 3} se chama \texttt{perf\_{}counter}.
+	
+	\begin{lstlisting}
+from time import perf_counter as clock
+	\end{lstlisting}
+	
+	\quest O seu decorador deve alterar a função para que ela retorne uma tupla contendo o resultado e o tempo de execução em segundos.
+	
+	\problem[1]{Diferencial I \label{p:diferencial1}}
+	
+	Aprendemos em Cálculo I que a derivada de uma função $f(x)$ pode ser calculada como:
+	
+		$$f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h}$$
+	
+	Se escolhemos um $h$ pequeno, algo como $0.001$, podemos deixar a ideia de limite de lado e partir para uma aproximação
+	
+		$$f'(x) \approx \frac{f(x + h) - f(x)}{h} \text{ para } h \ll 1$$
+
+	Outras aproximações razoáveis são	
+		\begin{align*}
+		f'(x) &\approx \frac{f(x + h) - f(x - h)}{2h}\\
+		\\		
+		f'(x) &\approx \frac{\im{f(x + \mb{i}h)}}{h} 
+		\end{align*}	
+	sendo essa última um pouco mais holística.\\
+	
+	\quest Faça uma função \texttt{d(f, h)} que receba uma função \texttt{f} e um número bem pequeno \texttt{h} e retorne uma outra função, que aproxime a derivada de \texttt{f}.\\
+	
+	\textbf{Detalhe:} Você pode definir o parâmetro \texttt{h} por um valor padrão (\textit{default}):
+	
+	\begin{lstlisting}{}
+def d(f, h=0.0001):
+	...
+	\end{lstlisting}
+	
+	\problem[2]{Diferencial \ROMAN{2} - O Retorno \label{p:diferencial2}}
+	
+	Se calculamos a derivada da derivada de uma função $f(x)$, obtemos a sua segunda derivada, $f''(x)$. E se calcularmos a derivada da derivada da derivada da derivada da derivada da derivada da derivada da derivada da derivada da derivada da derivada da derivada da derivada da derivada da derivada?\\
+	
+	\quest Faça uma função \texttt{D(f, n, h)} que calcule a $n$-ésima derivada da função \texttt{f}, de maneira recursiva.
+	
+	\problem[3]{Diferencial \ROMAN{3} - Parcial \label{p:diferencial3}}
+	
+	Para compreender a variação no caso de uma função com mais de uma variável, calculamos as suas derivadas parciais.\\
+	
+	\quest Implemente uma função \texttt{D(f, i, h)} que calcule a derivada parcial com respeito a $i$-ésima variável $x_i$. A função deve retornar uma outra função, supondo que \texttt{f} depende somente de \texttt{x}, um vetor.
+	
+	\chap{Condições (\stmt{if}, \stmt{elif}, \stmt{else})}
+	
+	\problem[1]{Funções por partes}
+	
+	Funções podem ser definidas por partes, isto é, utilizamos uma função para cada trecho do domínio. Dentre os exemplos mais conhecidos temos
+
+\begin{itemize}
+
+	\item[] A função de \textit{Heaviside}, ou função degrau:
+	\begin{align*}
+		u(t) \triangleq	\begin{cases}
+		1, \text{ se } t \geq 0\\
+		0, \text{ c.c.}
+		\end{cases}
+	\end{align*}
+	
+	\item[] A sua derivada, o delta de Dirac \footnote{Uma definição mais precisa supõe que $\displaystyle \int_{-\infty}^{\infty} \delta(t)\ dt = 1$}\footnote{O infinito ($\infty$) no \texttt{Python} é dado por \texttt{\type{float}(\str{inf})}.}:
+	\begin{align*}
+		\delta(t) \triangleq	\begin{cases}
+		\infty, \text{ se } t = 0\\
+		\phantom{0}0, \text{ c.c.}
+		\end{cases}
+	\end{align*}
+	
+	\item[] O módulo de um número real:
+	\begin{align*}
+		|x| \triangleq	\begin{cases}
+		\phantom{-}x, \text{ se } x \geq 0\\
+		-x, \text{ c.c.}
+		\end{cases}
+	\end{align*}	
+\end{itemize}
+	
+	Mas podemos pensar muitos outros exemplos
+	\begin{align*}
+		f(x) \triangleq	\begin{cases}
+		\hfill -2x,& \text{ se } 1 \leq x < 2\\ 
+		\hfill x,& \text{ se } 3 \leq x < 5\\
+		\hfill x^2,& \text{ c.c.}
+		\end{cases}
+	\end{align*}
+	\begin{align*}
+		g(x, y) \triangleq	\begin{cases}
+		\hfill x^2 + y^2,& \text{ se } x^2 + y^2 \leq 1\\
+		\hfill x^2 + xy + y^2,& \text{ se } 1 < x^2 + y^2 \leq 4\\
+		\hfill 0,& \text{ c.c.}\\
+		\end{cases}
+	\end{align*}
+
+	\quest Utilize condicionais para criar funções definidas por partes, como as dos exemplos.
+	
+	\problem[3]{Árvores de Decisão \incomplete}
+	
+	Uma técnica muito comum em aprendizado de máquina atualmente, uma \textbf{Árvore de Decisão} é uma estrutura de condicionais que se ramifica a cada etapa.
+
+	\begin{center}
+	\ttfamily\small
+	\begin{TAB}(c, 0.2cm, 0.2cm)[2pt]{|c|c|c|c|}{|c|c|c|c|c|c|c|c|c|}
+		Idade & Altura(m) & Peso(kg) & Saudável\\
+		12  & 1.33 & 40 & Sim\\
+		65  & 1.70 & 72 & Não\\
+		315 & 1.63 & 51 & Não\\
+		59  & 1.65 & 55 & Sim\\
+		34  & 1.68 & 84 & Sim\\
+		42  & 1.72 & 78 & Sim\\
+		 9  & 1.10 & 33 & Sim\\
+		22  & 1.80 & 79 & Não\\
+	\end{TAB}
+	\end{center}	
+	
+	\quest Usando condicionais, construa uma função que consiga classificar os dados da tabela, tentando usar o mínimo possível de etapas.
+	
+	\problem[2]{Um Problema Interior \ROMAN{1}}
+
+	Uma maneira simples de representar retângulos (dispostos de forma alinhada com os eixos do plano) em um computador é através de um par de pontos, onde cada ponto é um par ordenado $(x, y)$. Por convenção, o primeiro ponto indica o canto superior esquerdo do retângulo; e o segundo, o canto inferior direito.\\
+	
+	\figura[width=\textwidth]{retangulos.pdf}{Retângulos Sobrepostos}
+	
+	\quest Fazer uma função que, dados dois retângulos, retorna a intersecção entre eles, ou seja: Um outro retângulo ou \stmt{None}, caso não haja sobreposição.
+	
+		
+	
+	
+	\chap{Laços (\stmt{for}, \stmt{while})}
+	
+	\problem[2]{Sequência de Collatz}
+	
+	A sequência de Collatz é descrita recursivamente por:
+	{\large
+	\begin{align*}
+		f(n) \triangleq \begin{cases}
+		3n + 1, &\text{ se } n \text{ for ímpar}\\
+		n \div 2, &\text{ se } n \text{ for par}
+		\end{cases}
+	\end{align*}
+	}
+	Por exemplo, começamos com $n = 26$. Após sucessivas aplicações temos:
+		$$26 \to 13 \to 40 \to 20 \to 10 \to 5 \to 16 \to 8 \to 4 \to 2 \to 1$$
+	Isso nos dá uma sequência com $11$ números. $40$ é maior que $26$, mas sua sequência só teria $9$ números.\\
+	\\
+	Ainda não se sabe se todos os números induzem uma sequência que termina em $1$. No entanto, até agora não foi encontrado um número sequer em que isso não tenha acontecido!\\
+	\\
+	\textbf{Deasfio: } Faça uma função que calcule o comprimento da sequência gerada a partir de um número natural $n$ qualquer.
+	
+	\problem[3]{Integral I}
+	
+	A \textbf{Integral de Riemann} é dada por:
+	
+		$$\int_{a}^{b} f(x)\ dx = \lim_{N \to \infty} \sum_{k = 0}^{N} f(x_k) \cdot \delta x \text{ onde } \delta x = \frac{(b - a)}{N} \text{ e } x_k = a + k \cdot \delta x$$
+	
+	No entanto, vamos nos ater somente a um $N$ suficientemente grande e deixar o limite para lá.\\
+	
+	\quest Faça uma função que calcule o valor da integral definida de uma função \texttt{f}, dados os limites \texttt{a} e \texttt{b}, assim como o valor de \texttt{N}.
+	
+	
+	\chap{Números (\type{int}, \type{float}, \type{complex})}
+
+	\problem[2]{Números Primos I}
+	
+	\textbf{Desafio:} Faça uma função que verifique se um número é primo ou não.
+
+	\problem[1]{Gerando números "aleatórios"}
+	
+	Gerar um numero aleatório é um pouco complicado em geral. Muitas formas de se fazer isso hoje em dia se baseiam em processos da natureza como fluidos em regime turbulento ou fenômenos quânticos. No entanto, é possível chegar perto disso com muito menos. Para começar, escolhemos uma potência de $2$, como $\mathbf{N} = 2^{16} = 65536$. Depois disso, escolhemos um número primo no meio do caminho, digamos, $\mathbf{p} = 25773$. Por fim, um númeror ímpar menor que o número primo $\mathbf{p}$, por exemplo, $\mathbf{b} = 13849$.\\
+
+	Partimos de um número $\mathbf{n}_0$ qualquer no intervalo $[0, 25536)$ e calculamos o sucessor da seguinte forma:
+		\begin{align*}
+			\mathbf{n}_j = \mathbf{p} \times \mathbf{n}_{j-1} + \mathbf{b} \mod \mathbf{N}
+		\end{align*}
+
+	Para obter um número "aleatório"~ distribuído de maneira uniforme no intervalo $[0, 1)$, basta calcular
+		$$\mathbf{x}_j = \frac{\mathbf{n}_j}{\mathbf{N}}$$
+		
+	\textbf{Desafio:} Faça o seu próprio gerador de números aleatórios!
+		
+	\problem[1]{Música I}\label{p:musica1}
+	
+	Uma \textbf{nota musical} é o nome que se dá ao som relativo a uma frequência específica. Uma \textbf{oitava} é o intervalo entre uma nota musical e aquela que possui o dobro da sua frequência. Na música ocidental, uma \textbf{oitava} é dividida em 12 tons.\\
+	
+	A nota \textit{lá}, cujo símbolo é A, é normalmente dada pela frequência de 440Hz. Isso significa que também chamaremos de \textit{lá} os sons de 220Hz, 880Hz e assim por diante.\\
+	
+	
+	\begin{center}
+	\scriptsize
+	\begin{TAB}(c,1cm,1cm)[5pt]{|c|c|c|c|c|c|c|c|c|c|c|c|}{|c|c|}
+		A & A\# & B & C & C\# & D & D\# & E & F & F\# & G & G\#\\
+		0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11\\
+	\end{TAB}
+	\end{center}
+	
+	\textbf{Desafio:} Faça uma função que calcule a frequência $\mathbf{f}$ de cada nota, a partir do seu número, supondo que $\mathbf{f}(0) = 440\text{Hz}$.
+	
+	
+	
+	
+	
+	\chap{\textit{Strings} e Texto (\type{str})}
+	
+	\problem[2]{Unidades de Medida}
+	\begin{center}
+	\ttfamily
+	\begin{TAB}(c,1cm,1cm)[5pt]{|c|c|c|c|c|c|c|c|c|}{|c|c|}
+	T&G&M&K&-&m&u&n&p\\
+	$10^{12}$&$10^{9}$&$10^{6}$&$10^{3}$&$1$&$10^{-3}$&$10^{-6}$&$10^{-9}$&$10^{-12}$\\
+	\end{TAB}
+	\end{center}
+	
+	\quest Defina uma função que receba:
+	\begin{enumerate}
+		\item O valor
+		\item A unidade de medida
+	\end{enumerate}
+	e que retorne uma string com o valor, a escala e a unidade, como no exemplo:
+	
+	\begin{lstlisting}
+>>> f(2_000, 'g')
+2.0 Kg
+>>> f(1_200_000, 'Hz')
+1.2 MHz 
+	\end{lstlisting}
+
+	\textbf{Bônus:} A medida de \textit{bits} (b) e \textit{bytes} (B) ocorre de uma forma um pouco diferente: A mudança de escala acontece a cada 1024 unidades, e não a cada 1000 como em outras grandezas. Além disso, nesse caso não existem escalas fracionárias. Inclua condições para representar \textit{bits} e \textit{bytes}.
+	
+	
+	\problem[3]{DNA I}
+	
+	Uma sequência de DNA (\emph{ácido desoxirribonucleico}) é composta por 4 nucleotídeos: \textbf{A}denina, \textbf{C}itosina, \textbf{G}uanina \textbf{T}imina. Já no RNA mensageiro (mRNA), a \textbf{T}imina está ausente, e dá lugar para a \textbf{U}racila. Quando um ribossomo realiza a transcrição de DNA em mRNA ele segue uma regra muito simples:
+		
+	\begin{center}
+			\begin{tabular}{ccc}
+				A & $\rightarrow$ & U\\
+				T & $\rightarrow$ & A\\
+				C & $\rightarrow$ & G\\
+				G & $\rightarrow$ & C\\
+			\end{tabular}
+	\end{center}
+	
+	Além disso, o DNA possui alguns códons (sequências de 3 nucleotídeos) que indicam o início e fim de uma transcrição. ATG marca o início, enquanto TAG, TAA, e TGA indicam o final.\\
+	
+	Podemos representar uma fita de DNA usando uma \emph{string} (\type{str}), como por exemplo:
+	\begin{center}
+	\str{ACAATGTGTACGACTATACTACGTGCCTATTCGCATACGATCGATGACTAG}	
+	\end{center}
+	
+	\textbf{Desafio:} Faça uma função que traduza uma fita de DNA como faria um ribossomo. Ela deve receber uma \textit{string} de DNA e retornar uma \textit{string} de mRNA. Por exemplo, a fita de DNA acima seria transcrita em
+	\begin{center}
+	\str{ACAUGCUGAUAUGAUGCACGGAUAAGCGUAUGCUAGCUACUG}	
+	\end{center}
+	
+	
+	\problem[4]{Separando sílabas}
+	
+	Separa sílabas é uma tarefa interessante. O Português é uma das poucas línguas que possui um algoritmo que permite saber como separar as sílabas de uma palavra qualquer, isto é, se uma palavra nova for criada hoje em português, já é possível dividí-la mesmo sem conhecer a sua origem.
+	
+	\begin{center}
+		Flamengo $\to$ Fla-men-go
+	\end{center}
+	
+	Um algoritmo de separação silábica, para uma língua qualquer, normalmente conta com duas coisas: Um conjunto de regras e um conjunto de exceções.\\
+	
+	As regras nada mais são do que padrões que, uma vez observados, implicam em uma cisão na palavra. Por exemplo, consoantes dobradas como \textbf{rr} e \textbf{ss} sempre vão indicar uma separação:
+	
+	\begin{center}
+		Pá\textbf{ss}aro $\to$ Pá\textbf{s}-\textbf{s}a-ro\\
+		Ca\textbf{rr}o\textbf{ss}el $\to$ Ca\textbf{r}-\textbf{r}o\textbf{s}-\textbf{s}el
+	\end{center}
+	
+	As exceções nada mais são do que um conjunto de palavras que já sabemos como separar, armazenadas em pares da forma (palavra, separação).\\
+	
+	\textbf{Desafio:} Crie um conjunto de regras para que, dada uma palavra (\type{str}), a função retorne uma lista com a respectiva separação silábica. Exemplo:
+	
+	\begin{lstlisting}[caption="Separando sílabas"]
+>>> f('pássaro')
+['pás', 'sa', 'ro']
+>>> f('carrossel')
+['car', 'ros', 'sel']
+>>> f('paralelepípedo')
+['pa', 'ra', 'le', 'le', 'pí', 'pe', 'do']
+	\end{lstlisting}
+	
+	\problem[3]{Formas numéricas alternativas \ROMAN{1} - Roma \incomplete}
+	
+	blablabla sobre números romanos\\
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tabular}{|c|c|c|c|c|c|c|}
+		\hline		
+		M & D & C & L & X & V & I\\
+		\hline
+		1000 & 500 & 100 & 50 & 10 & 5 & 1\\
+		\hline
+		\end{tabular}
+	\end{figure}
+	
+	\quest Crie uma função que transforme um número natural em uma \textit{string} com a sua representação romana.
+	
+	\begin{lstlisting}
+>>> romano(12)
+'XII'
+>>> romano(44)
+'XLIV'
+	\end{lstlisting}
+
+	\textbf{Outro desafio:} Faça uma outra função para calcular o caminho contrário: dada um número romano (\type{str}), retornar um inteiro (\type{int}).
+
+	\begin{lstlisting}
+>>> anti_romano('XII')
+12
+>>> anti_romano('XLIV')
+44
+	\end{lstlisting}
+	
+	\problem[3]{Formas numéricas alternativas \ROMAN{2} - Babilônia \incomplete}
+
+	\subsubsection*{Binária}
+	
+	\begin{figure}[H]
+	\centering
+	\begin{tabular}{rr}
+	\textbf{0} \phantom{0}0 & \textbf{1} \phantom{0}1
+	\end{tabular}
+	\caption{Dígitos Binários, 2020 d.C.}
+	\end{figure}
+	
+	\subsubsection*{Hexadecimal}
+	
+	\begin{figure}[H]
+	\centering
+	\begin{tabular}{rrrr}
+	\textbf{0} \phantom{1}0 & \textbf{1} \phantom{1}1 & \textbf{2} \phantom{1}2 & \textbf{3} \phantom{1}3\\
+	\textbf{4} \phantom{1}4 & \textbf{5} \phantom{1}5 & \textbf{6} \phantom{1}6 & \textbf{7} \phantom{1}7\\
+	\textbf{8} \phantom{1}8 & \textbf{9} \phantom{1}9 & \textbf{A} 10 & \textbf{B} 11\\
+	\textbf{C} 12 & \textbf{D} 13 & \textbf{E} 14 & \textbf{F} 15
+	\end{tabular}
+	\caption{Dígitos Hexadecimais, 2020 d.C.}
+	\end{figure}
+			
+	
+	\subsubsection*{Babilônia}
+	
+	Estamos habituados com a base decimal, muito provavelmente porquê temos 10 dedos. O pessoal da antiga Babilônia tinha um sistema sexagesiaml: Isso mesmo, eram 60 dígitos diferentes!
+	
+	\figura[width=\textwidth]{babylonian_numerals.png}{Dígitos Babilônicos 1500 a.C.}
+	
+	Na verdade, eram só 59 porquê eles ainda não tinham o zero e deixavam um espaço em branco no lugar dele o que na hora das contas devia ser uma Torre de Babel! Dá pra perceber que apesar disso, a composição dos símbolos ainda tem sua própria carga da notação decimal, mesclando-a com a base 6.\\
+	
+	\textbf{Desafio:} Crie uma função que transforme um número na base decimal em uma representação (\type{str}) na base babilônica, assim como uma outra que faça o caminho contrário.	
+		
+	
+	\chap{Listas e Tuplas (\type{list}, \type{tuple})}
+	
+	\problem[2]{Crivo}
+	
+	O Eratóstenes foi um cara legal que viveu em 200 a.C., bolou um crivo e calculou a curvatura da terra.
+	
+	\figura[width=168pt]{eratostenes.png}{Eratóstenes de Cirene}
+	
+	Um \textbf{crivo} é uma forma de saber quem são os números primos até um determinado limite $\mb{N}$. O Crivo de Eratóstenes funciona de forma bem simples:
+	
+	\begin{enumerate}
+		\item Escrevemos em uma tabela todos os números de 0 até $\mb{N}$.
+		\item Riscamos o 0 e o 1.
+		
+		\item Se um número não estiver riscado, riscamos todos os múltiplos deste, menos o próprio.
+		
+		\item Andamos para o próximo número e repetimos a etapa anterior.		
+	\end{enumerate}
+	
+	Uma maneira interessante de fazer isso é criando uma lista de tamanho $\mb{N} + 1$, ou seja, cujos índices vão de 0 até $\mb{N}$.\\
+
+	\quest Implemente o crivo de Eratóstenes e, em seguida, elabore versões melhoradas do algoritmo, até onde conseguir.
+	
+	\problem[3]{Diferencial \ROMAN{4} - Gradiente \incomplete \label{p:diferencial4}}
+	
+	$$\nabla f(\mb{x}) = \left[
+	\pd{f(\mb{x})}{x_1},
+	\pd{f(\mb{x})}{x_2},
+	\cdots,
+	\pd{f(\mb{x})}{x_n}
+	\right]^{T}$$
+	
+	\quest Usando os resultados das questões anteriores (Diferencial I, II e III \bref{p:diferencial1}\bref{p:diferencial2}\bref{p:diferencial3}) faça uma função \texttt{grad(f, h)} que retorne o gradiente de uma função \texttt{f}.
+	
+	\problem[4]{Collatz \ROMAN{2} \label{p:collatz2}}
+	
+	
+	
+	
+	
+	
+	\chap{Conjuntos e Dicionários (\type{set}, \type{dict})}
+	
+	\problem[2]{Música II \incomplete \label{p:musica2}}
+	
+	Usando a função do exercício \textbf{Música I}[\ref{p:musica1}], podemos usar um dicionário para obter a frequência a partir do símbolo que representa a nota.
+
+
+	\begin{interlude}{\type{hash} \incomplete \label{i:hash}}
+		
+	Para entender um pouco melhor como funcionam os conjuntos (\type{set}) e dicionários (\type{dict}) é importante compreender o que é e como funciona o \textit{\textbf{hash}}.
+	
+	
+	
+	\end{interlude}	
+	
+	\problem[4]{\textit{Blockchain} \incomplete}\label{p:blockchain}
+	
+	Você já deve ter ouvido falar no \textit{Bitcoin}. Para prosseguir nessa questão é importante entender bem como funciona o \textit{hash}\bref{i:hash}.\\
+	
+	Como o nome diz, um \textit{Blockchain} se trata de um conjunto de blocos encadeados que representam transações, não somente financeiras, mas de um modo geral. Podemos pensar um \textit{Blockchain} como um grande livro de caixa, onde cada bloco é o registro de uma atividade. Um bloco, por sua vez, contém as informações que caracterizam uma transação, vejamos:
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tabular}{|lc|}
+		\hline
+		\textbf{\textit{hash} anterior:} & 0025\\
+		\hline
+		\textbf{De:} & Pedro \\
+		\hline
+		\textbf{Para:} & Anna \\
+		\hline
+		\textbf{Produto:} & Lápis \\
+		\hline	
+		\textbf{Valor:} & \$1.40 \\
+		\hline
+		\textbf{\textit{nonce}:} & 7840 \\
+		\hline
+		\textbf{\textit{hash}:} & 0098  \\
+		\hline
+		\end{tabular}
+		\label{fig:blockchain}
+		\caption{Bloco}
+	\end{figure}
+	
+	Além das informações habituais, é importante notar a presença do \textit{hash} e do \textit{nonce}. O valor do último campo é calculado a partir do \textit{hash} dos demais, inclusive do \textit{hash} proveniente do bloco anterior. Já o \textit{nonce} é um número qualquer, escolhido de forma que o \textit{hash} do bloco possua um determinado número de zeros a esquerda.\\
+	
+	O processo de escolher um \textit{nonce} é o que se entende por "mineração" no caso do \textit{Bitcoin}. Isso nada mais é do que a validação de um bloco. Uma vez atingido um valor de \textit{hash} satisfatório, o bloco está validado e pode ser adicionado ao \textit{Blockchain}. O próximo bloco terá o \textit{hash} do anterior presente no seu primeiro campo.\\
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tabular}{|lr|c|lr|}
+		\hline
+		\textbf{\textit{hash} anterior:} & 0025 &\hspace*{1cm}& \textbf{\textit{hash} anterior:} & 0098\\
+		\hline
+		\textbf{De:} & Pedro & & \textbf{De:} & Flávia \\
+		\hline
+		\textbf{Para:} & Anna & & \textbf{Para:} & Juca \\
+		\hline
+		\textbf{Produto:} & Lápis & & \textbf{Produto:} & Chapéu \\
+		\hline	
+		\textbf{Valor:} & \$1.40 & & \textbf{Valor:} & \$22.80\\
+		\hline
+		\textbf{\textit{nonce}:} & 7840 & & \textbf{\textit{nonce}:} & 1923 \\
+		\hline
+		\textbf{\textit{hash}:} & 0098 & & \textbf{\textit{hash}:} & \textcolor{red}{6327} \\
+		\hline
+		\end{tabular}
+		\label{fig:blockchain2}
+		\caption{Blocos}
+	\end{figure}	
+	
+	Aqui reside uma das principais ideias para a manutenção da legitimidade das transações: Se alguma das informações de um bloco for alterada, isso irá afetar o cálculo do seu \textit{hash}, o que fará com que este se torne inválido com probabilidade muito alta. Por conseguinte, o bloco à sua frente sofrerá do mesmo mal, pois o seu \textit{hash} maldito interfere no cálculo do \textit{hash} seguinte, e assim por diante. Dessa forma, uma auditoria simples é capaz de retornar a última operação válida.
+	
+	\quest Em
+	
+	
+	\chap{Arquivos e Diretórios (\texttt{sys}, \texttt{os}, \stmt{with}, \type{open})}
+	
+	\begin{interlude}{\texttt{csv}}
+	
+	Arquivos no formato \texttt{.csv} (\textit{comma separated values}) são muito utilizados para representar tabelas em um arquivo de texto. São facilmente lidos por programas como o Excel$^{\tiny \text{TM}}$.\\
+	
+	Por exemplo, o arquivo
+	
+	\begin{lstlisting}
+nome,CPF,idade
+João,82252631704,11
+Pedro,12432236702,21
+Anna,13241232392,15
+	\end{lstlisting}
+	
+	é interpretado como
+	
+	\begin{center}
+	\begin{tabular}{|c|c|c|}
+	\hline
+	nome  & CPF         & idade\\
+	\hline 
+	João  & 82252631704 &11\\
+	\hline
+	Pedro & 12432236702 &21\\
+	\hline
+	Anna  & 13241232392 &15\\
+	\hline
+	\end{tabular}
+	\end{center}
+	
+	\end{interlude}
+	
+	\problem[2]{Sem sair do diretório}
+	
+	Frequentemente, um programa lê e escreve em determinados arquivos. No entanto, queremos trabalhar com arquivos que estão numa pasta específica. Como fazer pra ir até essa pasta, fazer o que é necessário e retornar ao diretório original?\\
+	
+	\quest Feito isso, crie um decorador[\ref{i:decoradores}] que faça com que uma função sempre retorne ao diretório que estava antes da sua execução.
+	
+	\problem[3]{DNA II \incomplete}\label{p:dna2}
+	
+	Ler o DNA de um arquivo enorme.

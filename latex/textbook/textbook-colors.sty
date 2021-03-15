@@ -1,0 +1,64 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{textbook-colors}
+    \RequirePackage{xcolor}
+    \RequirePackage{ifthen}
+
+    %% ---------------- PLAIN THEME ----------------
+    \definecolor{plainbg}{rgb}{1.000, 1.000, 1.000}
+    \definecolor{plainfg}{rgb}{0.000, 0.000, 0.000}
+
+    %% Python IDLE Colors
+    \definecolor{plainpybg}      {RGB}{250, 250, 250}
+    \definecolor{plainpybasic}   {RGB}{  0,   0,   0}
+    \definecolor{plainpykeywords}{RGB}{255, 119,   0}
+    \definecolor{plainpybuiltins}{RGB}{144,  48, 144}
+    \definecolor{plainpycomments}{RGB}{221,   0,   0}
+    \definecolor{plainpynames}   {RGB}{  0,   0, 255}
+    \definecolor{plainpystrings} {RGB}{  0, 170,   0}
+    \definecolor{plainpyprompt}  {RGB}{120, 120, 185}
+
+    %% ---------------- DARK THEME ----------------
+    \definecolor{darkbg} {rgb}{0.050, 0.050, 0.100}
+    \definecolor{darkfg} {rgb}{1.000, 1.000, 1.000}
+
+    %% Python Dark Colors
+    \definecolor{darkpybg}      {RGB}{ 10,  10,  20}
+    \definecolor{darkpybasic}   {RGB}{255, 255, 255}
+    \definecolor{darkpykeywords}{RGB}{255, 119,   0}
+    \definecolor{darkpybuiltins}{RGB}{253, 253, 150}
+    \definecolor{darkpycomments}{RGB}{221,   0,   0}
+    \definecolor{darkpynames}   {RGB}{  0,   0, 255}
+    \definecolor{darkpystrings} {RGB}{  0, 170,   0}
+    \definecolor{darkpyprompt}  {RGB}{120, 120, 185}
+
+    \ifthenelse{\boolean{darktheme}}{
+        %% General Document
+        \colorlet{bg}{darkbg}
+        \colorlet{fg}{darkfg}
+        %% Python
+        \colorlet{pybg}      {darkpybg}
+        \colorlet{pybasic}   {darkpybasic}
+        \colorlet{pykeywords}{darkpykeywords}
+        \colorlet{pybuiltins}{darkpybuiltins}
+        \colorlet{pycomments}{darkpycomments}
+        \colorlet{pynames}   {darkpynames}
+        \colorlet{pystrings} {darkpystrings}
+        \colorlet{pyprompt}  {darkpyprompt}
+    }{%%
+        \colorlet{bg}{plainbg}
+        \colorlet{fg}{plainfg}
+        %% Python
+        \colorlet{pybg}      {plainpybg}
+        \colorlet{pybasic}   {plainpybasic}
+        \colorlet{pykeywords}{plainpykeywords}
+        \colorlet{pybuiltins}{plainpybuiltins}
+        \colorlet{pycomments}{plainpycomments}
+        \colorlet{pynames}   {plainpynames}
+        \colorlet{pystrings} {plainpystrings}
+        \colorlet{pyprompt}  {plainpyprompt}
+    }
+
+    %% Set document color
+    \pagecolor{bg}
+    \color{fg}
+\endinput
