@@ -1,0 +1,166 @@
+\ProvidesPackage{textbook-environments}
+    \RequirePackage{ifthen}
+    
+    %% Constants
+    \newskip\titleskipamount%
+    \titleskipamount=48pt plus 4pt minus 4pt%%
+    \newcommand*\titleskip{\vspace{\titleskipamount}}
+
+    %%%% -------- TITLE PAGE --------
+    \newcommand{\titlepage}{%%
+        \cleartorecto
+        \pagestyle{empty}
+        \begingroup% Three Men in a Boat
+            \centering
+            \settowidth{\unitlength}{\@title}
+            \vspace*{\baselineskip}
+            {\large\scshape \@author}\\[\baselineskip]
+            \rule{\unitlength}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt}
+            \rule{\unitlength}{0.4pt}\\[\baselineskip]
+            {\@title}\\[\baselineskip]
+            {\@subtitle}\\[0.2\baselineskip]
+            \rule{\unitlength}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt}
+            \rule{\unitlength}{1.6pt}\\[\baselineskip]
+            {\large\scshape \@titlecomment}\par
+            \vfill
+            {\@titleimage}
+            \vfill
+            {\large\scshape \@publisher}\\[\baselineskip]
+            {\small\scshape \the\year}\par
+            \vspace*{0.1\textheight}
+        \endgroup
+        \clearpage
+    }
+
+    %%%% ------------- CHAPTER -------------
+    \renewcommand\chapter[2][]{
+        \cleartorecto
+        \refstepcounter{chapter}
+        \begingroup
+            \begin{flushright}
+                {\HUGE\bfseries\sffamily\arabic{chapter}}
+            \end{flushright}
+        \endgroup
+        \bigskip
+        \begingroup
+            \begin{adjustwidth}{0cm}{2cm}
+                \begin{flushright}
+                    \MakeUppercase{\Huge\bfseries\sffamily #2}%%
+                \end{flushright}
+            \end{adjustwidth}
+        \endgroup
+        \bigskip
+        \addcontentsline{toc}{chapter}{#2}
+        \noindent
+    }
+    %%%% ------------- CHAPTER*-------------
+    \WithSuffix\newcommand\chapter*[2][]{%%
+        \cleartorecto
+        \addcontentsline{toc}{chapter}{#2}
+        \begingroup
+            \titleskip%%
+            \begingroup
+            \begin{adjustwidth}{0cm}{2cm}
+                \begin{flushright}
+                    \MakeUppercase{\Huge\bfseries\sffamily #2}%%
+                \end{flushright}
+            \end{adjustwidth}
+            \endgroup
+            \titleskip%%
+        \endgroup
+        \noindent
+    }
+    %%%% ------------- CHAPTER -------------
+
+
+    %%%% ------------- SECTION -------------
+
+    %%%% ------------- SECTION*-------------
+    \def\convertto#1#2{\strip@pt\dimexpr #2*65536/\number\dimexpr 1#1}
+
+    \newlength{\squareside}%%
+    \newcommand\inlinesquare{%%
+        \setlength{\squareside}{\convertto{cm}{\f@size pt}cm}
+        \hbox{\pdfliteral{0 0 1 rg}\vrule height\squareside width\squareside depth0cm\pdfliteral{0 g}}%%
+    }
+
+    \newlength{\sectionskip}
+    \setlength{\sectionskip}{0ex}
+    \WithSuffix\newcommand\section*[2][]{%%
+        \phantomsection
+        \bigskip\noindent%%
+        \begingroup
+            \begin{flushright}
+                \MakeUppercase{\Large\bfseries\sffamily #2 \inlinesquare}%%
+            \end{flushright}
+        \endgroup
+        \ifthenelse{\equal{#1}{}}{%% IF
+            %% DO NOTHING
+        }{%% ELSE
+            \label{#1}
+        }
+        \addcontentsline{toc}{section}{#2}%%
+        \stepcounter{section}
+        \noindent%%
+    }
+    %%%% ------------- SECTION -------------
+
+
+
+    %% --------------- PROBLEM (subsection) -----------------
+    %% Lengths
+    \newlength{\problemstep}
+    \setlength{\problemstep}{0ex}
+    \newlength{\problemskip}
+    \setlength{\problemskip}{-1ex}
+    %% Style
+    \newcommand*{\problemstyle}{
+        \large\bfseries%%
+    }
+    %% Numbering
+    \newcommand*{\problemnum}{%
+        \arabic{chapter}.\arabic{subsection}%%
+    }
+
+    \newenvironment{problem}[2][]{%%
+        \addtocounter{subsection}{1}
+        \settowidth{\problemstep}{\problemstyle\problemnum~~}%%
+        \bigskip\noindent\hspace*{-\problemstep}
+        {\problemstyle\problemnum~#2}\\[\problemskip]%%
+        \addcontentsline{toc}{subsection}{\problemstyle\problemnum~#2}%%
+        \ifthenelse{\equal{#1}{}}{%%
+            %% Do nothing
+        }{
+            \label{#1} %% Add Label for referencing
+        }%%
+        \noindent%
+        \begin{adjustwidth}{0cm}{0pt}
+    }{
+        \end{adjustwidth}
+    }
+    %% --------------- PROBLEM (subsection) -----------------
+
+
+    %%%% ------------- GRAPHICS -----------------
+    \newenvironment{Figure}[1][]{
+        \begin{figure}[H]
+            \centering
+            \ifthenelse{\equal{#1}{}}{%% IF
+                %% DO NOTHING
+            }{%% ELSE
+                \label{#1}
+            }
+    }{
+        \end{figure}
+    }
+
+    \newcommand\inputikz[2][]{
+        \ifthenelse{\equal{#1}{}}{%% IF
+            \input{tikz/#2.tikz}
+        }{%% ELSE
+            \resizebox{#1}{!}{%
+                \input{tikz/#2.tikz}
+            }
+        }
+    }
+\endinput

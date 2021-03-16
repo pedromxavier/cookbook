@@ -181,4 +181,11 @@
     %% Do Nothing at all
 }%%
 
-\newcommand*{\lstpy}[1]{\lstinline[style=pythonstyle]{#1}}%%
+\newcommand*{\lstpy}[1]{\lstinline[style=pythonstyle, breaklines, breakatwhitespace]{#1}}%%
+
+\newcommand{\code}[1]{\textcolor{pybasic}{\texttt{#1}}}
+\newcommand{\type}[1]{\textcolor{pybuiltins}{\texttt{#1}}}
+\newcommand{\stmt}[1]{\textcolor{pykeywords}{\texttt{#1}}}
+\newcommand{\str}[2]["]{\textcolor{pystrings}{\texttt{#1#2#1}}}
+
+\endinput

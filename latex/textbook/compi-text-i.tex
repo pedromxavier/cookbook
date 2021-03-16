@@ -1,13 +1,20 @@
-\chapter{Tipos, Variáveis, Operadores e Funções}
+\chapter{Tipos, Variáveis, Operadores e Funções}%%
 
 	\section*{Introdução}%%
 	É interessante, de fato, iniciar o estudo da computação através das funções. As funções trazem consigo os conceitos de tipos e variáveis de maneira muito natural. De maneira simples, uma função pode ser compreendida como a transformação dos dados de entrada nos dados de saída, cada qual com seus respectivos tipos. \par
 	
 	A noção de tipo está também relacionada à ideia de conjunto. Ser de um determinado tipo é pertencer a um conjunto, mais especificamente ao conjunto daquele tipo. Isto fica bem claro quando se pensa nos números, embora seja um conceito adequado a uma miríade de situações. \par
 	%%
-	\input{tikz-src/conjuntos.tikz}
+	\begin{Figure}[f:conjuntos]
+		\inputikz[0.6\textwidth]{conjuntos}
+		\caption{Conjuntos numéricos}
+	\end{Figure}
 	%%
 	Em textos de matemática a nível superior, é comum que as funções recebam outros nomes a depender do contexto. Uma nomeclatura um tanto elucidativa é chamar funções de \textit{aplicações}, em inglês, \textit{mappings}. É de bom gosto observar que as funções são \textit{mapas} que levam de um ponto em um conjunto noutro ponto de outro conjunto. \par
+
+	Dito isto, é importante pensar por um tempo no significado de uma função, ter em mente que qualquer processo computacional, por mais complicado que seja, pode ser representado pela aplicação de diferentes funções em sequência. Formalmente, uma transformação será descrita pela composição de diversas transformações mais simples. Isso tudo, porém, no mundo das ideias. \par
+
+	Os \textit{operadores}, por outro lado, são a materialização da computação que desejamos realizar. Operações tratam da maneira explícita como uma tarefa lógica ou aritmética deve ser encadeada.
 
 	\section*{Variáveis e atribuição}%%
 	\begin{lstpython}
@@ -28,12 +35,13 @@
 	5
 	\end{lstpython}
 
-    \begin{problem}{Cálculo I - Limites}
-		Seja $f : \R \to \R $ uma função diferenciável.
+    \begin{problem}[p:calculo:1]{Cálculo I - Limites}
+	O limite $\ell$ de uma função $f(x)$ no ponto $a$ é o valor que a função assume conforme $x$ se aproxima de $a$. Escrevemos:
+		$$\ell = \lim_{x \to a} f(x)$$
+	Na maioria dos casos, quando a função não apresentar nenhuma descontinuidade, podemos afirmar com tranquilidade que $\ell = f(a)$. 
 	\end{problem}
 
-
-	\begin{problem}{Música I - As notas e os sons}
+	\begin{problem}[p:musica:1]{Música I - As notas e os sons}
 		Cada nota musical corresponde a uma frequência distinta (em Hz). Tomando o lá central (A4) como referência, em 440Hz, podemos calcular a frequência das outras notas com base na distância relativa a essa nota.
         $$f(n) = 440 \times 2^{(n/12)}$$
         Na tabela abaixo, vemos as notas musicais, seus símbolos, e a distância em semitons\footnote{Dois semitons equivalem a um tom. No violão, cada casa de uma mesma corda está a um semitom da casa adjacente. No piano, quando há uma tecla preta entre as brancas, há uma distância de um tom entre elas. Quando a tecla preta não está, a distância é de meio tom, ou um semitom.} para o lá central (A4).
@@ -64,9 +72,11 @@
     \begin{problem}{Coordenadas polares}
         
         Estamos acostumados a pensar em coordenadas cartesianas na hora de descrever a geometria de um determinado objeto. No entanto, o sistema de coordenadas deve ser escolhido conforme o cenário em que se está trabalhando.
-        
-        \input{tikz-src/cartesiano.tikz}
-        
+        %%
+		
+        \inputikz{cartesiano}
+
+		%%
         O ponto $(4, 3)$, quando escrito em coordenadas polares, nos dá:
         \begin{align*}
         r &= \sqrt{4^2 + 3^2} = \sqrt{16 + 9} = \sqrt{25} = 5\\
@@ -90,7 +100,7 @@
 	Uma das ferramentas mais simples e poderosas dos computadores é a sua capacidade de tomar diferentes atitudes mediante uma condição. 
 
 	\begin{problem}{Meia-entrada}%%
-		
+
 	A Lei Federal nº 12933/2013, também conhecida como Lei da Meia-Entrada, garante o benefício do pagamento de Meia-Entrada para estudantes, pessoas com deficiência e jovens, de baixa renda, com idade entre 15 e 29 anos. Já a Lei Federal nº 10741/2003, mais conhecida como Estatuto do Idoso, as pessoas com idade igual ou superior a 60 anos tem direito à Meia-Entrada para eventos artísticos e de lazer. Aqui no estado do Rio de Janeiro, contamos ainda com a Lei Estadual RJ n° 3.364/00, que garante o benefício a todos os menores de 21 anos. \par
 	
 	\proposal Escreva a função \texttt{meia\_entrada} que receba os parâmetros:
@@ -113,7 +123,7 @@
 	\end{problem}
 
 
-	\section*{Repetição}
+	\section*{Repetição}%%
 
 	\begin{problem}{Sequência de \emph{Collatz}}    
 	A sequência de \emph{Collatz} é obtida aplicando sucessivamente a função

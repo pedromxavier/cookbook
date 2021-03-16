@@ -1,6 +1,30 @@
-\chapter{Notação}
-   Como referência, a notação matemática segue o padrão encontrado na maioria dos livros e artigos do assunto. No entanto, principalmente na hora de falar de código utilizaremos alguns recursos tipográficos para auxiliar na comunicação. \par
+\chapter*{Notação}%%
+	Como referência, a notação matemática segue o padrão encontrado na maioria dos livros e artigos do assunto. No entanto, principalmente na hora de falar de código utilizaremos alguns recursos tipográficos para auxiliar na comunicação. \par
 
-   \section*{\textit{Python}}%%
-   Quando falando sobre os elementos da linguagem, estes aparecerão em fonte monoespaçada, tal como \code{x}, \code{y} e \code{math}.
-   As palavras reservadas estão escritas em fonte alaranjada, como em \stmt{if}, \stmt{return} e \stmt{del}. Funções, tipos e exceções da biblioteca padrão são mostrados em tom violeta: \type{list}, \type{range}, \type{open}, etc. Por fim, temos as \textit{strings} em verde, \str[']{Oi Mundão}, \str{Adeus, Mundinho}; e os comentários cor-de-vinho, \lstpy{# Voltei Mundão}.
+	\section*{\textit{Python}}%%
+	Quando falando sobre os elementos da linguagem, estes aparecerão em fonte monoespaçada, tal como \code{x}, \code{y} e \code{math}.
+	As palavras reservadas (comandos) são destacadas como em \stmt{if}, \stmt{return} e \stmt{del}. Funções, tipos e exceções da biblioteca padrão são mostrados como \type{list}, \type{range}, \type{open}, etc. Por fim, temos as \textit{strings}, \str[']{Oi Mundão}, \str{Adeus, Mundinho}; e os comentários, \lstpy{# Voltei Mundão}. Trechos de código serão formatados como a seguir:
+	%%
+	\begin{lstpython}
+	import math
+
+	def f(n):
+		if n == 0 or n == 1:
+			return 1
+		else:
+			return f(n - 1) + f(n - 2)
+
+	print("f(10) =", f(10))
+	\end{lstpython}
+	%%
+	Sessões do console interativo aparecem de maneira bastante similar:
+	%%
+	\begin{lstpython}
+	>>> L = [2, 3, 5, 7, 11]
+	>>> L[1]
+	3
+	>>> L.append(13)
+	>>> L
+	[2, 3, 5, 7, 11, 13]
+	\end{lstpython}
+	%%
