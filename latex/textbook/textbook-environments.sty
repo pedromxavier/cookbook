@@ -6,6 +6,30 @@
     \titleskipamount=48pt plus 4pt minus 4pt%%
     \newcommand*\titleskip{\vspace{\titleskipamount}}
 
+    \newskip\chapterskipamount%
+    \chapterskipamount=32pt plus 4pt minus 4pt%%
+    \newcommand*\chapterskip{\vspace{\chapterskipamount}}
+
+    %%%% -------- Page Styles -------
+    \newcommand\setchaptermark[1]{\renewcommand\@chaptermark{#1}}
+    \newcommand{\@chaptermark}{~}
+
+    \newcommand\setsectionmark[1]{\renewcommand\@sectionmark{#1}}
+    \newcommand{\@sectionmark}{~}
+
+    \newlength{\markstepamount}
+    \setlength{\markstepamount}{2.5ex}
+    \newcommand*{\markstep}{\hspace{\markstepamount}}
+
+    %% Regular
+    \makepagestyle{regular}
+    \makeevenhead {regular}{}{}{{\sffamily\@sectionmark}\markstep{\bfseries\sffamily\thepage}}
+    \makeoddhead  {regular}{{\bfseries\sffamily\thepage}\markstep{\sffamily\@chaptermark}}{}{}
+    \makeheadrule {regular}{\textwidth}{\normalrulethickness}
+    %% Plain
+    \makeevenfoot {plain}{}{{\bfseries\sffamily\thepage}}{}
+    \makeoddfoot  {plain}{}{{\bfseries\sffamily\thepage}}{}
+
     %%%% -------- TITLE PAGE --------
     \newcommand{\titlepage}{%%
         \cleartorecto
@@ -36,12 +60,16 @@
     \renewcommand\chapter[2][]{
         \cleartorecto
         \refstepcounter{chapter}
+        \setchaptermark{#2}
+        \addcontentsline{toc}{chapter}{\arabic{chapter}. #2}
+        \pagestyle{regular}
+        \thispagestyle{empty}
         \begingroup
             \begin{flushright}
                 {\HUGE\bfseries\sffamily\arabic{chapter}}
             \end{flushright}
         \endgroup
-        \bigskip
+        \chapterskip
         \begingroup
             \begin{adjustwidth}{0cm}{2cm}
                 \begin{flushright}
@@ -49,14 +77,15 @@
                 \end{flushright}
             \end{adjustwidth}
         \endgroup
-        \bigskip
-        \addcontentsline{toc}{chapter}{#2}
+        \chapterskip
         \noindent
     }
     %%%% ------------- CHAPTER*-------------
     \WithSuffix\newcommand\chapter*[2][]{%%
         \cleartorecto
+        \chaptermark{#2}
         \addcontentsline{toc}{chapter}{#2}
+        \pagestyle{plain}
         \begingroup
             \titleskip%%
             \begingroup
@@ -89,6 +118,7 @@
     \WithSuffix\newcommand\section*[2][]{%%
         \phantomsection
         \bigskip\noindent%%
+        \setsectionmark{#2}
         \begingroup
             \begin{flushright}
                 \MakeUppercase{\Large\bfseries\sffamily #2 \inlinesquare}%%

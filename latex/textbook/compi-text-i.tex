@@ -5,16 +5,19 @@
 	
 	A noção de tipo está também relacionada à ideia de conjunto. Ser de um determinado tipo é pertencer a um conjunto, mais especificamente ao conjunto daquele tipo. Isto fica bem claro quando se pensa nos números, embora seja um conceito adequado a uma miríade de situações. \par
 	%%
-	\begin{Figure}[f:conjuntos]
-		\inputikz[0.6\textwidth]{conjuntos}
+	\begin{figure}[h]
+		\label{f:conjuntos}
+		\centering
+		\medskip
+		\inputikz[0.5\textwidth]{conjuntos}
 		\caption{Conjuntos numéricos}
-	\end{Figure}
+	\end{figure}
 	%%
 	Em textos de matemática a nível superior, é comum que as funções recebam outros nomes a depender do contexto. Uma nomeclatura um tanto elucidativa é chamar funções de \textit{aplicações}, em inglês, \textit{mappings}. É de bom gosto observar que as funções são \textit{mapas} que levam de um ponto em um conjunto noutro ponto de outro conjunto. \par
 
 	Dito isto, é importante pensar por um tempo no significado de uma função, ter em mente que qualquer processo computacional, por mais complicado que seja, pode ser representado pela aplicação de diferentes funções em sequência. Formalmente, uma transformação será descrita pela composição de diversas transformações mais simples. Isso tudo, porém, no mundo das ideias. \par
 
-	Os \textit{operadores}, por outro lado, são a materialização da computação que desejamos realizar. Operações tratam da maneira explícita como uma tarefa lógica ou aritmética deve ser encadeada.
+	Os \textit{operadores}, por outro lado, são a materialização da computação que desejamos realizar. Operações tratam da maneira explícita como uma tarefa lógica ou aritmética deve ser encadeada. Pode-se dizer, portanto, que as operações estão entre as funções mais simples e mais próximas da realidade. O que acabo de dizer aparece de maneira clara no projeto dos processadores digitais. A arquitetura x86 moderna possui algumas centenas de instruções, já um processador RISC chega a operar com apenas 34 intruções\cite{arm:1995}. Ou seja, as mais complexas atividades realizadas por um computador comum são compostas a partir de um conjunto reduzido de operações básicas. \par
 
 	\section*{Variáveis e atribuição}%%
 	\begin{lstpython}
