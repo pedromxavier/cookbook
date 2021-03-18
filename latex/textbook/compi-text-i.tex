@@ -4,7 +4,37 @@
 	É interessante, de fato, iniciar o estudo da computação através das funções. As funções trazem consigo os conceitos de tipos e variáveis de maneira muito natural. De maneira simples, uma função pode ser compreendida como a transformação dos dados de entrada nos dados de saída, cada qual com seus respectivos tipos. \par
 	
 	A noção de tipo está também relacionada à ideia de conjunto. Ser de um determinado tipo é pertencer a um conjunto, mais especificamente ao conjunto daquele tipo. Isto fica bem claro quando se pensa nos números, embora seja um conceito adequado a uma miríade de situações. \par
+	
+	Em textos de matemática a nível superior, é comum que as funções recebam outros nomes a depender do contexto. Uma nomeclatura um tanto elucidativa é chamar funções de \textit{aplicações}, em inglês, \textit{mappings}. É de bom gosto observar que as funções são \textit{mapas} que levam de um ponto em um conjunto noutro ponto de outro conjunto. \par
+
+	Dito isto, é importante pensar por um tempo no significado de uma função, ter em mente que qualquer processo computacional, por mais complicado que seja, pode ser representado pela aplicação de diferentes funções em sequência. Formalmente, uma transformação será descrita pela composição de diversas transformações mais simples. Isso tudo, porém, no mundo das ideias. \par
+
+	Os \textit{operadores}, por outro lado, são a materialização da computação que desejamos realizar. Operações tratam da maneira explícita como uma tarefa lógica ou aritmética deve ser encadeada. Pode-se dizer, portanto, que as operações estão entre as funções mais simples e mais próximas da realidade. O que acabo de dizer aparece de maneira clara no projeto dos processadores digitais. A arquitetura x86 moderna possui algumas centenas de instruções, dentre operações aritméticas, de acesso à memória e de controle. Um processador RISC, por sua vez, chega a operar com apenas 34 intruções\cite{arm:1995}. O importante é ter em mente que as mais complexas atividades realizadas por um computador são compostas a partir de um conjunto reduzido de operações básicas. \par
+
+	\section*{Tipos}%%
+	A teoria por trás dos tipos é bastante extensa e é tratada com detalhe muito maior no volume de Computação II\cite{xavier:2021}. No decorrer dos próximos capítulos vamos tratar das especificidades e casos de uso dos tipos básicos. Por enquanto, vamos nos ater à sua apresentação e ao uso prático inicial. \par
+
+	Vamos começar pelos tipos numéricos. Estão disponíveis os tipos |int|, |float| e |complex|, construídos para representar os números inteiros ($\Z$), reais ($\R$) e complexos ($\C$), respectivamente. A primeira vista, podemos distingui-los pela sintaxe: os números representados em ponto-flutuante%%
 	%%
+	\footnote{Uma discussão mais aprofundada sobre ponto-flutuante e o padrão IEE 754 se encontra no capítulo \ref{c:numeros}.}%%
+	%%
+	podem ser escritos adicionando a parte decimal após o ponto, como em |0.5| e |-1.2| ou através de notação científica, como |6.02e+23| ($6,02 \times 10^{23}$). Os números complexos são simplesmente uma extensão do tipo |float|, onde a parte imaginária é indicada acrescentando um |j| ao final do número. A unidade imaginária $\ii$, por exemplo, escreve-se |1j|. Tendo em mãos estes três tipos, podemos realizar as operações aritméticas básicas de adição |+|, subtração |-|, multiplicação |*| e divisão |/|; além da exponenciação |**| e da divisão inteira, realizada através dos operadores de quociente |//| e resto |%|. \par
+
+	Tome um tempo para assimilar o comportamento destes operadores, procurando explorar tanto os casos simples quanto os mais problemáticos como a divisão por zero ou operações entre números grandes demais. Atente, em cada operação para os tipos dos operandos assim como para o tipo do resultado. A própria sintaxe deve deixar isso claro mas você pode sempre contar com a função |type|, como no exemplo a seguir.\par
+	%%
+	\begin{pyprompt}
+	>>> 1 + 1
+	§2§
+	>>> 1 + 1.0
+	§2.0§
+	>>> type(1 + 1)
+	§<class 'int'>§
+	>>> type(1 + 1.0)
+	§<class 'float'>§
+	\end{pyprompt}
+	%%
+	Se tem uma coisa fundamental a ser percebida neste primeiro exemplo é a hierarquia existente entre os tipos |int|, |float| e |complex|, relação que vamos relembrar através da adaptação de uma velha figura.
+	%
 	\begin{figure}[h]
 		\label{f:conjuntos}
 		\centering
@@ -12,12 +42,10 @@
 		\inputikz[0.5\textwidth]{conjuntos}
 		\caption{Conjuntos numéricos}
 	\end{figure}
-	%%
-	Em textos de matemática a nível superior, é comum que as funções recebam outros nomes a depender do contexto. Uma nomeclatura um tanto elucidativa é chamar funções de \textit{aplicações}, em inglês, \textit{mappings}. É de bom gosto observar que as funções são \textit{mapas} que levam de um ponto em um conjunto noutro ponto de outro conjunto. \par
+	%
+	Pensando na correspondência entre os tipos e os conjuntos que representam, podemos afirmar que em uma operação entre números de tipos distintos o resultado será do tipo mais geral, ou seja, do conjunto mais externo. \par
 
-	Dito isto, é importante pensar por um tempo no significado de uma função, ter em mente que qualquer processo computacional, por mais complicado que seja, pode ser representado pela aplicação de diferentes funções em sequência. Formalmente, uma transformação será descrita pela composição de diversas transformações mais simples. Isso tudo, porém, no mundo das ideias. \par
-
-	Os \textit{operadores}, por outro lado, são a materialização da computação que desejamos realizar. Operações tratam da maneira explícita como uma tarefa lógica ou aritmética deve ser encadeada. Pode-se dizer, portanto, que as operações estão entre as funções mais simples e mais próximas da realidade. O que acabo de dizer aparece de maneira clara no projeto dos processadores digitais. A arquitetura x86 moderna possui algumas centenas de instruções, já um processador RISC chega a operar com apenas 34 intruções\cite{arm:1995}. Ou seja, as mais complexas atividades realizadas por um computador comum são compostas a partir de um conjunto reduzido de operações básicas. \par
+	
 
 	\section*{Variáveis e atribuição}%%
 	\begin{lstpython}
@@ -28,7 +56,7 @@
 	\end{lstpython}
 
 	\section*{Funções}%%
-	Para definir uma função vamos utilizar o comando \stmt{def}, seguido do nome da função, dos seus parâmetros e, por fim, o código que deve executar.
+	Para definir uma função vamos utilizar o comando |def|, seguido do nome da função, dos seus parâmetros e, por fim, o código que deve executar.
 	\begin{lstpython}
 	>>> def f(x, y):
 	...		return x + y
@@ -41,7 +69,18 @@
     \begin{problem}[p:calculo:1]{Cálculo I - Limites}
 	O limite $\ell$ de uma função $f(x)$ no ponto $a$ é o valor que a função assume conforme $x$ se aproxima de $a$. Escrevemos:
 		$$\ell = \lim_{x \to a} f(x)$$
-	Na maioria dos casos, quando a função não apresentar nenhuma descontinuidade, podemos afirmar com tranquilidade que $\ell = f(a)$. 
+	Quando a função não apresentar nenhuma descontinuidade ao redor do ponto $a$, podemos afirmar com tranquilidade que $\ell = f(a)$. Uma maneira simples de aproximar os limites laterais no computador é calcular
+		$$\lim_{x \to a^{-}}f(x) \approx f(a - \epsilon) \text{ e } \lim_{x \to a^{+}}f(x) \approx f(a + \epsilon)$$
+	escolhendo um valor suficientemente pequeno para $\epsilon$. 
+
+	\begin{lstpython}
+	def lim(f, a, e=0.01):
+		"""Limite da função f no ponto a."""
+		e = 1E-4 # 0.0001
+		return (f(a - e) + f(a + e)) / 2.0
+	\end{lstpython}
+
+	\proposal Faça uma função |lim(f, a)| para calcular o limite da função |f| no ponto |a|. Leve em consideração a existência do limite.
 	\end{problem}
 
 	\begin{problem}[p:musica:1]{Música I - As notas e os sons}
@@ -62,7 +101,7 @@
 		Você pode notar que a cada 12 semitons, a nota se repete com o dobro da frequência. Chamamos este intervalo entre notas de oitava. Na notação acima, a cada letra indica uma nota diferente, enquanto o número diz a oitava em que ela se encontra. \par
         
 		\proposal
-        Faça uma função \texttt{f(n)} que retorne a frequência em Hertz de uma nota que se encontra a \texttt{n} semitons de distância do lá central. Arredonde o resultado para o número inteiro mais próximo usando as funções \type{round} e \type{int}. \par
+        Faça uma função |f(n)| que retorne a frequência em Hertz de uma nota que se encontra a $n$ semitons de distância do lá central. Arredonde o resultado para o número inteiro mais próximo usando a função |round(numero, digitos)|. \par
         
         \begin{lstpython}
 	>>> f(0), f(2), f(3)
@@ -106,14 +145,14 @@
 
 	A Lei Federal nº 12933/2013, também conhecida como Lei da Meia-Entrada, garante o benefício do pagamento de Meia-Entrada para estudantes, pessoas com deficiência e jovens, de baixa renda, com idade entre 15 e 29 anos. Já a Lei Federal nº 10741/2003, mais conhecida como Estatuto do Idoso, as pessoas com idade igual ou superior a 60 anos tem direito à Meia-Entrada para eventos artísticos e de lazer. Aqui no estado do Rio de Janeiro, contamos ainda com a Lei Estadual RJ n° 3.364/00, que garante o benefício a todos os menores de 21 anos. \par
 	
-	\proposal Escreva a função \texttt{meia\_entrada} que receba os parâmetros:
+	\proposal Escreva a função |meia\_entrada| que receba os parâmetros:
 	\begin{enumerate} 
-		\item \texttt{idade} (\type{int})
-		\item \texttt{estudante} (\type{bool})
-		\item \texttt{deficiencia} (\type{bool})
-		\item \texttt{baixa\_renda} (\type{bool})
+		\item |idade| (|int|)
+		\item |estudante| (|bool|)
+		\item |deficiencia| (|bool|)
+		\item |baixa\_renda| (|bool|)
 	\end{enumerate}
-	informando com \stmt{True} ou \stmt{False} se a pessoa tem direito ao desconto. normal,
+	informando com |True| ou |False| se a pessoa tem direito ao desconto. normal,
     
 	\begin{lstpython}
     >>> meia_entrada(60, False, False, False)
@@ -157,13 +196,15 @@
 	\end{problem}
 
 	\begin{problem}{\textit{Chatbot} I}
-	Existe uma história corrente de que o grande motor da inteligência artificial em escala industrial é o uso indiscriminado do comando \stmt{if} e seus derivados.
+	Existe uma história corrente de que o grande motor da inteligência artificial em escala industrial é o uso indiscriminado do comando |if| e seus derivados. Não é difícil pensar que através de um número suficientemente grande de condições seja possível abarcar uma grande variedade de comportamentos. \par
+
+	\proposal Construa uma função chamada |chatbot|
 	\end{problem}
 
-	\section*{Decoradores}
-	Agora é hora de voltar a falar em funções. 
-
-	\section*{Parâmetros}
-	Agora é hora de voltar a falar em funções.
-
-\endinput
+	\section*{Recursividade}%%
+	
+	\section*{Parâmetros}%%
+	
+	\section*{Decoradores}%%
+	
+	\endinput

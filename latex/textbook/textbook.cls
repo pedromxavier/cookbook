@@ -47,7 +47,7 @@
 \RequirePackage{graphicx}
 \RequirePackage{tikz}
 \RequirePackage{helvet}
-\RequirePackage{courier}
+\RequirePackage{inconsolata}
 \RequirePackage{ragged2e}
 \RequirePackage{enumitem}
 \RequirePackage{hyperref}
@@ -61,61 +61,11 @@
     \RequirePackage{fontspec}
 \fi
 
-%%%% -------- LANGUAGE ----------
-\ifthenelse{\equal{\@ulang}{br}}{
-    \RequirePackage[brazil]{babel}
-}{%%%
-    %% Do Nothing
-}
-
-\newcommand*{\userlanguage}{\@ulang}%%
-
-%%%% Require main package
-\RequirePackage{textbook-colors}
-\RequirePackage{textbook-listing}
-
-%%%% -------- PARAMETERS ---------
-\newcommand{\subtitle}[1]{\renewcommand\@subtitle{\sffamily #1}}%%
-\newcommand\@subtitle{~}%%
-
-\newcommand{\publisher}[1]{\renewcommand\@publisher{#1}}%%
-\newcommand\@publisher{~}%%
-
-\newcommand{\titlecomment}[1]{\renewcommand\@titlecomment{#1}}%%
-\newcommand\@titlecomment{~}%%
-
-\newcommand{\titleimage}[2][]{%%
-    \renewcommand\@titleimage{%%
-        \begin{figure}[H]
-            \centering
-            \includegraphics[#1]{#2}
-        \end{figure}[H]
-    }}%%
-\newcommand\@titleimage{~}%%
-
-\renewcommand{\title}[1]{\renewcommand\@title{\HUGE\textsc #1}}
-
-\renewcommand{\baselinestretch}{1.15} 
-
-%% --------- ENVIRONMENTS ------------
-\RequirePackage{textbook-environments}
-
-\newcommand{\proposal}{%%
-    \medskip\noindent
-    {\bfseries\translate[to=\@ulang]{Proposal}}\\
-}
-
-\newcommand{\preface}{%%
-    \translatelet[to=\@ulang]\trans@temp{Preface}
-    \chapter*{\texorpdfstring{\trans@temp}{Preface}}%%
-}
-
-\newcommand{\prefacenote}[1]{%%
-    \bigskip%%
-    \begin{flushright}
-        #1%%
-    \end{flushright}
-}
 
 \RequirePackage{textbook-commands}
+\RequirePackage{textbook-colors}
+\RequirePackage{textbook-listing}
+\RequirePackage{textbook-config}
+\RequirePackage{textbook-environments}
+
 \endinput

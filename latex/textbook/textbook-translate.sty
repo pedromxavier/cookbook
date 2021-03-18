@@ -14,11 +14,23 @@
     }
 
     %%%% PT_BR
-    \deftranslation[to=br]{Proposal}{Proposta}%
+    \deftranslation[to=br]{Advice}  {Conselho}%
     \deftranslation[to=br]{Preface} {Prefácio}%
+    \deftranslation[to=br]{Proposal}{Proposta}%
 
     %%%% DE
-    \deftranslation[to=de]{Proposal}{Vorschlag}%
+    \deftranslation[to=de]{Advice}  {Rat}%
     \deftranslation[to=de]{Preface} {Vorwort}%
+    \deftranslation[to=de]{Proposal}{Vorschlag}%
+
+    %%%% BABEL
+    \ifthenelse{\equal{\@ulang}{br}}{%
+        \RequirePackage[brazil]{babel}
+    }{
+    \ifthenelse{\equal{\@ulang}{de}}{%
+        \RequirePackage[ngerman]{babel}
+    }{
+        %% Do Nothing
+    }}
 
 \endinput

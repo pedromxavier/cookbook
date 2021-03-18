@@ -1,5 +1,6 @@
 \ProvidesPackage{textbook-listing}
     \RequirePackage{listings}
+    \RequirePackage{lstautogobble}
     
     \DeclareOption*{%
         \PackageWarning{textbook-listings}{Unknown ‘\CurrentOption’}
@@ -17,63 +18,55 @@
         \shifttext{0.1ex}{.}%%
     }
 
-    \newcommand*{\afseries}[0]{%%
-        \fontseries{b}\selectfont
+    %% ------------------- PYTHON COLOURS ------------------
+    \newcommand*{\pyoutputstyle}{%%
+        \ttfamily\color{pyoutput}%%
     }
 
-    %% ------------------- PYTHON COLOURS ------------------
     \newcommand*{\pybasicstyle}{%%
-        \ttfamily\color{pybasic}
+        \ttfamily\color{pybasic}%%
     }
 
     \newcommand*{\pynamestyle}{%%
-        \bfseries\color{pynames}
+        \bfseries\color{pynames}%%
     }
 
-    \newcommand*{\pythonprompt}{
-        \ifnum\lst@mode=\lst@Pmode
-            \textcolor{pyprompt}{{>}{>}{>}}
+    \newcommand*{\pythonprompt}{%%
+        \ifnum\lst@mode=\lst@Pmode%%
+            \textcolor{pyprompt}{{>}{>}{>}}%%
         \else%%
-            {>}{>}{>}
+            {>}{>}{>}%%
         \fi
     }
 
-    \newcommand*{\pythonellipsis}{
-        \ifnum\lst@mode=\lst@Pmode
-            \textcolor{pyprompt}{{\litdot}{\litdot}{\litdot}}
+    \newcommand*{\pythonellipsis}{%%
+        \ifnum\lst@mode=\lst@Pmode%%
+            \textcolor{pyprompt}{{\litdot}{\litdot}{\litdot}}%%
         \else%%
-            {\litdot}{\litdot}{\litdot}
+            {\litdot}{\litdot}{\litdot}%%
         \fi
     }
 
-    \newcommand*{\pykeywordstyle}{%%
-        \color{pykeywords}
+    \newcommand{\pykeywordstyle}{%%
+        \color{pykeywords}%%
     }
 
-    \newcommand*{\pybuiltinstyle}{%%
-        \color{pybuiltins}
+    \newcommand{\pybuiltinstyle}{%%
+        \color{pybuiltins}\unskip%%
     }
 
-    \newcommand*{\pystringstyle}{%%
-        \color{pystrings}
+    \newcommand{\pystringstyle}{%%
+        \color{pystrings}%%
     }
 
-    \newcommand*{\pycommentstyle}{%%
-        \color{pycomments}
+    \newcommand{\pycommentstyle}{%%
+        \color{pycomments}%%
     }
     %% ------------------- PYTHON COLOURS ------------------
 
     %% ------------------- LITERAL CHARACTERS --------------------
-    \def\addlstliterate#1{%%
-        \edef\lst@literate{%%
-            \unexpanded\expandafter{\lst@literate}\unexpanded{#1}%%
-        }
-    }
-
-    \lst@Key{moreliterate}{}{\addlstliterate{#1}}
-
     \lstdefinestyle{literalstyle}{ %%
-        mathescape=true,
+        mathescape=false,
         extendedchars=true,
         inputencoding=utf8,
         literate=%%
@@ -105,19 +98,53 @@
 
     %% ------------------- BASE STYLE --------------------
     \lstdefinestyle{basestyle}{ %%
-        style=literalstyle,
-        basicstyle=\ttfamily,
-        numberblanklines=true,
+        style=literalstyle,%%
+        basicstyle=\ttfamily%%
+    }
+
+    \lstdefinestyle{blockstyle}{ %%
         showstringspaces=false,
         breakatwhitespace=false,
         breaklines=true,
+        numberblanklines=true,
         xleftmargin=\parindent,
         stepnumber=1,
         numbers=left,
         frame=single,
         tabsize=4,
-        gobble=4
+        %aboveskip=.5ex,
+        %frame=trbl,
+        %frameround=tttt,
+        %framesep=.3ex,
+        numberstyle=\color{fg},
+        rulecolor=\color{black!20},
+        backgroundcolor=\color{pybg},
+        breakindent=.5\textwidth,
+        %}
     }
+
+    \lstdefinestyle{promptstyle}{ %%
+        showstringspaces=false,
+        breakatwhitespace=false,
+        breaklines=true,
+        numberblanklines=true,
+        xleftmargin=\parindent,
+        stepnumber=1,
+        numbers=left,
+        frame=single,
+        tabsize=4,
+        %aboveskip=.5ex,
+        %frame=trbl,
+        %frameround=tttt,
+        %framesep=.3ex,
+        numberstyle=\color{fg},
+        rulecolor=\color{black!20},
+        backgroundcolor=\color{pybg},
+        breakindent=.5\textwidth,
+        moredelim={[is][\pyoutputstyle]{§}{§}}
+    }
+
+    
     %% ------------------- BASE STYLE --------------------
 
     
@@ -129,6 +156,7 @@
         language=python,
         %% Basic config
         alsoletter={1234567890},
+        showstringspaces=false,
         %
         %% Highlighting - Tokens
         keywords={%%
@@ -142,25 +170,53 @@
         },
         %
         %% Highlighting - Styles
-        basicstyle={\pybasicstyle},
-        stringstyle={\pystringstyle},
-        keywordstyle={\pykeywordstyle},
-        emphstyle={\pybuiltinstyle},
-        commentstyle={\pycommentstyle},
+        basicstyle=\pybasicstyle,%
+        stringstyle=\pystringstyle,%
+        keywordstyle=\pykeywordstyle,%
+        emphstyle=\pybuiltinstyle,%
+        commentstyle=\pycommentstyle,%
         %
-        moreliterate=%
+        literate=%
+            {ã}{{\~a}}1                         {õ}{{\~o}}1 
+            {Ã}{{\~A}}1                         {Õ}{{\~O}}1 
+            {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+            {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+            {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+            {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+            {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+            {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+            {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+            {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+            {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+            {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+            {€}{{\EUR}}1 {£}{{\pounds}}1
+            {.}{\litdot}1
+            {~}{{{\raisebox{0.5ex}{\texttildelow}}}}1
+            {^}{{{\raisebox{-0.5ex}{\textasciicircum}}}}1
+            {√}{{{\raisebox{0.5ex}{$\sqrt{}$}}}}1
+            {≈}{{$\approx$}}1
+            {∫}{{$\int$}}1 {∞}{{$\infty$}}1
+            {α}{{$\alpha$}}1 {β}{{$\beta$}}1  {γ}{{$\gamma$}}1 {ε}{{$\epsilon$}}1
+            {ω}{{$\omega$}}1 {σ}{{$\sigma$}}1 {δ}{{$\delta$}}1 {Δ}{{$\Delta$}}1
+            {π}{{$\pi$}}1    {θ}{{$\theta$}}1 {η}{{$\eta$}}1   {ξ}{{$\xi$}}1	
+            {¹}{{$^1$}}1     {²}{{$^2$}}1     {³}{{$^3$}}1     {⁴}{{$^4$}}1     {⁵}{{$^5$}}1
             {>>>}{\pythonprompt}{3}%
             {...}{\pythonellipsis}{3}%
-        ,%
-        %aboveskip=.5ex,
-        frame=trbl,
-        %frameround=tttt,
-        %framesep=.3ex,
-        numberstyle=\color{fg},
-        rulecolor=\color{black!20},
-        backgroundcolor=\color{pybg},
-        breakindent=.5\textwidth,frame=single,breaklines=true%
-        %}
+        , %
+        % %
+    }
+
+    \lstdefinestyle{pythonblockstyle}{
+        %% Inheritance
+        style=pythonstyle,
+        style=blockstyle,
+        autogobble=true,
+    }
+
+    \lstdefinestyle{pythonpromptstyle}{
+        style=pythonstyle,
+        style=promptstyle,
+        autogobble=true,
     }
 
 \newcommand*{\inputpython}[3]{%%
@@ -172,20 +228,20 @@
         breakindent=.5\textwidth,%
         frame=single,%
         breaklines=true,%
-        style=mypython%
+        style=pythonblockstyle%
     ]{#1}}%
 
 \lstnewenvironment{lstpython}[1][]{%%
-    \lstset{style=pythonstyle}
+    \lstset{style=pythonblockstyle}
 }{%%
     %% Do Nothing at all
 }%%
 
-\newcommand*{\lstpy}[1]{\lstinline[style=pythonstyle, breaklines, breakatwhitespace]{#1}}%%
+\lstnewenvironment{pyprompt}[1][]{%%
+    \lstset{style=pythonpromptstyle}
+}{%%
+    %% Do Nothing at all
+}%%
 
-\newcommand{\code}[1]{\textcolor{pybasic}{\texttt{#1}}}
-\newcommand{\type}[1]{\textcolor{pybuiltins}{\texttt{#1}}}
-\newcommand{\stmt}[1]{\textcolor{pykeywords}{\texttt{#1}}}
-\newcommand{\str}[2]["]{\textcolor{pystrings}{\texttt{#1#2#1}}}
-
+\lstMakeShortInline[style=pythonstyle]|
 \endinput

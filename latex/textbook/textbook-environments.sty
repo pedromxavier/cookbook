@@ -76,6 +76,11 @@
                     \MakeUppercase{\Huge\bfseries\sffamily #2}%%
                 \end{flushright}
             \end{adjustwidth}
+            \ifthenelse{\equal{#1}{}}{%% IF
+                %% DO NOTHING
+            }{%% ELSE
+                \label{#1}
+            }
         \endgroup
         \chapterskip
         \noindent
@@ -94,6 +99,11 @@
                     \MakeUppercase{\Huge\bfseries\sffamily #2}%%
                 \end{flushright}
             \end{adjustwidth}
+            \ifthenelse{\equal{#1}{}}{%% IF
+                %% DO NOTHING
+            }{%% ELSE
+                \label{#1}
+            }
             \endgroup
             \titleskip%%
         \endgroup
@@ -192,5 +202,28 @@
                 \input{tikz/#2.tikz}
             }
         }
+    }
+
+    %%%% ---------------------------------------
+    \newcommand{\proposal}{%%
+        \medskip\noindent
+        {\bfseries\translate[to=\@ulang]{Proposal}}\\
+    }
+
+    \newcommand{\advice}{%%
+        \medskip\noindent
+        {\bfseries\translate[to=\@ulang]{Advice}}\\
+    }
+
+    \newcommand{\preface}{%%
+        \translatelet[to=\@ulang]\trans@temp{Preface}
+        \chapter*{\texorpdfstring{\trans@temp}{Preface}}%%
+    }
+
+    \newcommand{\prefacenote}[1]{%%
+        \bigskip%%
+        \begin{flushright}
+            #1%%
+        \end{flushright}
     }
 \endinput

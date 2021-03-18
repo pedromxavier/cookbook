@@ -15,6 +15,7 @@
     \definecolor{plainpynames}   {RGB}{  0,   0, 255}
     \definecolor{plainpystrings} {RGB}{  0, 170,   0}
     \definecolor{plainpyprompt}  {RGB}{120, 120, 185}
+    \definecolor{plainpyoutput}  {RGB}{ 90,  45,  45}
 
     %% ---------------- DARK THEME ----------------
     \definecolor{darkbg} {rgb}{0.050, 0.050, 0.100}
@@ -29,6 +30,7 @@
     \definecolor{darkpynames}   {RGB}{  0,   0, 255}
     \definecolor{darkpystrings} {RGB}{  0, 170,   0}
     \definecolor{darkpyprompt}  {RGB}{120, 120, 185}
+    \definecolor{darkpyoutput}  {RGB}{120, 120, 185}
 
     \ifthenelse{\boolean{darktheme}}{
         %% General Document
@@ -43,6 +45,7 @@
         \colorlet{pynames}   {darkpynames}
         \colorlet{pystrings} {darkpystrings}
         \colorlet{pyprompt}  {darkpyprompt}
+        \colorlet{pyoutput}  {darkpyoutput}
     }{%%
         \colorlet{bg}{plainbg}
         \colorlet{fg}{plainfg}
@@ -55,6 +58,7 @@
         \colorlet{pynames}   {plainpynames}
         \colorlet{pystrings} {plainpystrings}
         \colorlet{pyprompt}  {plainpyprompt}
+        \colorlet{pyoutput}  {plainpyoutput}
     }
 
     %% Set document color

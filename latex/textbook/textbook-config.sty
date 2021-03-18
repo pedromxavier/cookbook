@@ -1,0 +1,26 @@
+\ProvidesPackage{textbook-config}
+    %%%% -------- PARAMETERS ---------
+    \newcommand{\subtitle}[1]{\renewcommand\@subtitle{\sffamily #1}}%%
+    \newcommand\@subtitle{~}%%
+
+    \newcommand{\publisher}[1]{\renewcommand\@publisher{#1}}%%
+    \newcommand\@publisher{~}%%
+
+    \newcommand{\titlecomment}[1]{\renewcommand\@titlecomment{#1}}%%
+    \newcommand\@titlecomment{~}%%
+
+    \newcommand{\titleimage}[2][]{%%
+        \renewcommand\@titleimage{%%
+            \begin{figure}[H]
+                \centering
+                \includegraphics[#1]{#2}
+            \end{figure}[H]
+        }}%%
+    \newcommand\@titleimage{~}%%
+
+    \renewcommand{\title}[1]{\renewcommand\@title{\HUGE\textsc #1}}
+
+    %%%% ------ DOCUMENT CONSTANTS ------
+    \renewcommand{\baselinestretch}{1.15} 
+
+\endinput
