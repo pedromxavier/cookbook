@@ -733,27 +733,6 @@ def d(f, h=0.0001):
 	
 	\chap{Listas e Tuplas (\type{list}, \type{tuple})}
 	
-	\problem[2]{Crivo}
-	
-	O Eratóstenes foi um cara legal que viveu em 200 a.C., bolou um crivo e calculou a curvatura da terra.
-	
-	\figura[width=168pt]{eratostenes.png}{Eratóstenes de Cirene}
-	
-	Um \textbf{crivo} é uma forma de saber quem são os números primos até um determinado limite $\mb{N}$. O Crivo de Eratóstenes funciona de forma bem simples:
-	
-	\begin{enumerate}
-		\item Escrevemos em uma tabela todos os números de 0 até $\mb{N}$.
-		\item Riscamos o 0 e o 1.
-		
-		\item Se um número não estiver riscado, riscamos todos os múltiplos deste, menos o próprio.
-		
-		\item Andamos para o próximo número e repetimos a etapa anterior.		
-	\end{enumerate}
-	
-	Uma maneira interessante de fazer isso é criando uma lista de tamanho $\mb{N} + 1$, ou seja, cujos índices vão de 0 até $\mb{N}$.\\
-
-	\quest Implemente o crivo de Eratóstenes e, em seguida, elabore versões melhoradas do algoritmo, até onde conseguir.
-	
 	\problem[3]{Diferencial \ROMAN{4} - Gradiente \incomplete \label{p:diferencial4}}
 	
 	$$\nabla f(\mb{x}) = \left[
@@ -764,15 +743,6 @@ def d(f, h=0.0001):
 	\right]^{T}$$
 	
 	\quest Usando os resultados das questões anteriores (Diferencial I, II e III \bref{p:diferencial1}\bref{p:diferencial2}\bref{p:diferencial3}) faça uma função \texttt{grad(f, h)} que retorne o gradiente de uma função \texttt{f}.
-	
-	\problem[4]{Collatz \ROMAN{2} \label{p:collatz2}}
-	
-	
-	
-	
-	
-	
-	\chap{Conjuntos e Dicionários (\type{set}, \type{dict})}
 	
 	\problem[2]{Música II \incomplete \label{p:musica2}}
 	

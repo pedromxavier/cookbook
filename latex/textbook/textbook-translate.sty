@@ -6,6 +6,15 @@
     \newcommand*\setuptranslate{
         \uselanguage{\@ulang}
         \languagepath{\@ulang}
+            %%%% BABEL
+        \ifthenelse{\equal{\@ulang}{br}}{%
+        \RequirePackage[brazil]{babel}
+    }{
+    \ifthenelse{\equal{\@ulang}{de}}{%
+        \RequirePackage[ngerman]{babel}
+    }{
+        %% Do Nothing
+    }}
     }
 
     \newcommand*\translateUC[2][]{%
@@ -22,15 +31,5 @@
     \deftranslation[to=de]{Advice}  {Rat}%
     \deftranslation[to=de]{Preface} {Vorwort}%
     \deftranslation[to=de]{Proposal}{Vorschlag}%
-
-    %%%% BABEL
-    \ifthenelse{\equal{\@ulang}{br}}{%
-        \RequirePackage[brazil]{babel}
-    }{
-    \ifthenelse{\equal{\@ulang}{de}}{%
-        \RequirePackage[ngerman]{babel}
-    }{
-        %% Do Nothing
-    }}
 
 \endinput

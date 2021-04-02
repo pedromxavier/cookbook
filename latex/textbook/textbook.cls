@@ -45,12 +45,15 @@
 %%%% -------- PACKAGES -----------
 \RequirePackage{float}
 \RequirePackage{graphicx}
-\RequirePackage{tikz}
 \RequirePackage{helvet}
 \RequirePackage{inconsolata}
 \RequirePackage{ragged2e}
 \RequirePackage{enumitem}
 \RequirePackage{hyperref}
+
+%%%% ----- PGF & TIKZ -----
+\RequirePackage{tikz}
+\usetikzlibrary{arrows}
 
 %% check compiler
 \ifpdf
@@ -61,6 +64,7 @@
     \RequirePackage{fontspec}
 \fi
 
+\setuptranslate%
 
 \RequirePackage{textbook-commands}
 \RequirePackage{textbook-colors}

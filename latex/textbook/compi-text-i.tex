@@ -5,11 +5,11 @@
 	
 	A noção de tipo está também relacionada à ideia de conjunto. Ser de um determinado tipo é pertencer a um conjunto, mais especificamente ao conjunto daquele tipo. Isto fica bem claro quando se pensa nos números, embora seja um conceito adequado a uma miríade de situações. \par
 	
-	Em textos de matemática a nível superior, é comum que as funções recebam outros nomes a depender do contexto. Uma nomeclatura um tanto elucidativa é chamar funções de \textit{aplicações}, em inglês, \textit{mappings}. É de bom gosto observar que as funções são \textit{mapas} que levam de um ponto em um conjunto noutro ponto de outro conjunto. \par
+	Em textos de matemática a nível superior, é comum que as funções recebam outros nomes a depender do contexto. Uma nomenclatura um tanto elucidativa é chamar funções de \textit{aplicações}, em inglês, \textit{mappings}. É de bom gosto observar que as funções são \textit{mapas} que levam de um ponto em um conjunto noutro ponto de outro conjunto. \par
 
 	Dito isto, é importante pensar por um tempo no significado de uma função, ter em mente que qualquer processo computacional, por mais complicado que seja, pode ser representado pela aplicação de diferentes funções em sequência. Formalmente, uma transformação será descrita pela composição de diversas transformações mais simples. Isso tudo, porém, no mundo das ideias. \par
 
-	Os \textit{operadores}, por outro lado, são a materialização da computação que desejamos realizar. Operações tratam da maneira explícita como uma tarefa lógica ou aritmética deve ser encadeada. Pode-se dizer, portanto, que as operações estão entre as funções mais simples e mais próximas da realidade. O que acabo de dizer aparece de maneira clara no projeto dos processadores digitais. A arquitetura x86 moderna possui algumas centenas de instruções, dentre operações aritméticas, de acesso à memória e de controle. Um processador RISC, por sua vez, chega a operar com apenas 34 intruções\cite{arm:1995}. O importante é ter em mente que as mais complexas atividades realizadas por um computador são compostas a partir de um conjunto reduzido de operações básicas. \par
+	Os \textit{operadores}, por outro lado, são a materialização da computação que desejamos realizar. Operações tratam da maneira explícita como uma tarefa lógica ou aritmética deve ser encadeada. Pode-se dizer, portanto, que as operações estão entre as funções mais simples e mais próximas da realidade. O que acabo de dizer aparece de maneira clara no projeto dos processadores digitais. A arquitetura x86 moderna possui algumas centenas de instruções, dentre operações aritméticas, de acesso à memória e de controle. Um processador RISC, por sua vez, chega a operar com apenas 34 instruções\cite{arm:1995}. O importante é ter em mente que as mais complexas atividades realizadas por um computador são compostas a partir de um conjunto reduzido de operações básicas. \par
 
 	\section*{Tipos}%%
 	A teoria por trás dos tipos é bastante extensa e é tratada com detalhe muito maior no volume de Computação II\cite{xavier:2021}. No decorrer dos próximos capítulos vamos tratar das especificidades e casos de uso dos tipos básicos. Por enquanto, vamos nos ater à sua apresentação e ao uso prático inicial. \par
@@ -20,7 +20,7 @@
 	%%
 	podem ser escritos adicionando a parte decimal após o ponto, como em |0.5| e |-1.2| ou através de notação científica, como |6.02e+23| ($6,02 \times 10^{23}$). Os números complexos são simplesmente uma extensão do tipo |float|, onde a parte imaginária é indicada acrescentando um |j| ao final do número. A unidade imaginária $\ii$, por exemplo, escreve-se |1j|. Tendo em mãos estes três tipos, podemos realizar as operações aritméticas básicas de adição |+|, subtração |-|, multiplicação |*| e divisão |/|; além da exponenciação |**| e da divisão inteira, realizada através dos operadores de quociente |//| e resto |%|. \par
 
-	Tome um tempo para assimilar o comportamento destes operadores, procurando explorar tanto os casos simples quanto os mais problemáticos como a divisão por zero ou operações entre números grandes demais. Atente, em cada operação para os tipos dos operandos assim como para o tipo do resultado. A própria sintaxe deve deixar isso claro mas você pode sempre contar com a função |type|, como no exemplo a seguir.\par
+	Tome um tempo para assimilar o comportamento destes operadores, procurando explorar tanto os casos simples quanto os mais problemáticos como a divisão por zero ou operações entre números grandes demais. Atente, em cada operação para os tipos dos termos assim como para o tipo do resultado. A própria sintaxe deve mostrar-se suficiente para identificar o tipo mas você pode sempre contar com a função |type|.\par
 	%%
 	\begin{pyprompt}
 	>>> 1 + 1
@@ -33,20 +33,43 @@
 	§<class 'float'>§
 	\end{pyprompt}
 	%%
-	Se tem uma coisa fundamental a ser percebida neste primeiro exemplo é a hierarquia existente entre os tipos |int|, |float| e |complex|, relação que vamos relembrar através da adaptação de uma velha figura.
+	Se tem uma coisa fundamental a ser percebida neste primeiro exemplo é a hierarquia existente entre os tipos |int|, |float| e |complex|, relação que vamos relembrar através da adaptação de um velho diagrama (figura \ref{f:conjuntos}).
 	%
 	\begin{figure}[h]
-		\label{f:conjuntos}
 		\centering
 		\medskip
 		\inputikz[0.5\textwidth]{conjuntos}
 		\caption{Conjuntos numéricos}
+		\label{f:conjuntos}
 	\end{figure}
 	%
-	Pensando na correspondência entre os tipos e os conjuntos que representam, podemos afirmar que em uma operação entre números de tipos distintos o resultado será do tipo mais geral, ou seja, do conjunto mais externo. \par
+	Pensando na correspondência entre os tipos e os conjuntos que representam, podemos afirmar que em uma operação entre números de tipos distintos o resultado será do tipo mais geral, ou seja, do conjunto mais externo. É possível também converter números de um tipo em outro, salvo algumas observações. Números inteiros podem vir a ser representados em ponto-flutuante ou como complexo. Isso ocorre da mesma maneira que um |float|, onde o número original passa a ser a parte real de um novo número, com parte imaginária igual a zero. O caminho contrário apresenta a mesma naturalidade. A conversão de um número decimal para inteiro naturalmente descarta a parte fracionária, de onde restam apenas as unidades. Transformar um número complexo em um tipo simplesmente real seria ambíguo, uma vez que não é óbvio que atitude tomar em relação à parte imaginária do número. Portanto, não é possível converter um número complexo para nenhum dos outros tipos. Resumimos este diálogo na figura \ref{f:mapa-numeros}.
+	%%
+	\begin{figure}[h]
+		\centering
+		\medskip
+		\inputikz[0.5\textwidth]{mapa-numeros}
+		\caption{Mapa de tipos numéricos}
+		\label{f:mapa-numeros}
+	\end{figure}
+	%%
+	Por fim, vale ressaltar que o tipo |complex| só é utilizado em aplicações bastante específicas, enquanto o |float| está presente na maioria dos casos de uso. O tipo inteiro estará sempre presente, pois desempenha muitas tarefas importantes para além da aritmética. Falaremos de maneira mais precisa acerca dos tipos numéricos e suas aplicações no capítulo \ref{c:numeros}.\par
 
+	Seguindo adiante, vamos tratar de alguns tipos de sequências. Temos disponíveis três tipos básicos de estruturas sequenciais: listas |list|, tuplas |tuple| e \textit{strings} |str|. As duas primeiras são estruturas de uso geral e servem para armazenar de maneira ordenada elementos de qualquer tipo, incluindo os números e até mesmo outras sequências. As \textit{strings} são projetadas para armazenar sequências de caracteres, ou seja, texto. \par
+
+	As listas são delimitadas por colchetes |[]| e seus elementos são separados por vírgulas. As tuplas, por sua vez, utilizam parênteses |()| e tem um comportamento semelhante. As diferenças entre as duas serão esmiuçadas adiante, no capítulo \ref{c:estruturas}. Por fim, as \textit{strings} são compostas pelos caracteres inseridos entre aspas, sejam elas simples |''| ou duplas |""|.\par
+
+	Assim como no caso dos números, é possível transformar listas em tuplas e vice-versa, utilizando as funções |list| e |tuple|. As transformações envolvendo as \textit{strings} e seu tipo |str|, no entanto, possuem um comportamento distinto. Qualquer elemento de qualquer tipo pode ser transformado em \textit{string}, o que consiste em obter uma representação visual para o mesmo. O processo contrário, de transformar \textit{strings} em outros tipos deve ser analisado caso-a-caso. \par
+
+	A operação fundamental entre sequências é a concatenação |+|. Não é possível, contudo, concatenar cadeias de tipos distintos.
+
+	\begin{pyprompt}
+	>>> [1, 2, 3, 4, 5]
+	§[1, 2, 3, 4, 5]§
+	>>> 1, 2, 3, 4, 5
+	§(1, 2, 3, 4, 5)§
+	\end{pyprompt}
 	
-
 	\section*{Variáveis e atribuição}%%
 	\begin{lstpython}
 	>>> x = 0
@@ -101,7 +124,7 @@
 		Você pode notar que a cada 12 semitons, a nota se repete com o dobro da frequência. Chamamos este intervalo entre notas de oitava. Na notação acima, a cada letra indica uma nota diferente, enquanto o número diz a oitava em que ela se encontra. \par
         
 		\proposal
-        Faça uma função |f(n)| que retorne a frequência em Hertz de uma nota que se encontra a $n$ semitons de distância do lá central. Arredonde o resultado para o número inteiro mais próximo usando a função |round(numero, digitos)|. \par
+        Faça uma função |f(n)| que retorne a frequência em Hertz de uma nota que se encontra a $n$ semitons de distância do lá central. Arredonde o resultado para o número inteiro mais próximo usando a função |round(numero, dígitos)|. \par
         
         \begin{lstpython}
 	>>> f(0), f(2), f(3)
@@ -129,41 +152,17 @@
 		Construa duas funções: \texttt{polar(x, y)} levará um ponto em coordenadas cartesianas $(x, y)$ para a forma polar $(r, \theta)$ e \texttt{cart(r, theta)}, que fará o caminho contrário.\par
         
         \begin{lstpython}
-    >>> import math
-    >>> polar(-1, 0)
-    (1.0, 3.141592653589793)
-    >>> cart(2, math.pi)
-    (-2.0, 0.0)
+		>>> import math
+		>>> polar(-1, 0)
+		(1.0, 3.141592653589793)
+		>>> cart(2, math.pi)
+		(-2.0, 0.0)
         \end{lstpython}
         
     \end{problem}
 
 	\section*{Condicionais}%%
-	Uma das ferramentas mais simples e poderosas dos computadores é a sua capacidade de tomar diferentes atitudes mediante uma condição. 
-
-	\begin{problem}{Meia-entrada}%%
-
-	A Lei Federal nº 12933/2013, também conhecida como Lei da Meia-Entrada, garante o benefício do pagamento de Meia-Entrada para estudantes, pessoas com deficiência e jovens, de baixa renda, com idade entre 15 e 29 anos. Já a Lei Federal nº 10741/2003, mais conhecida como Estatuto do Idoso, as pessoas com idade igual ou superior a 60 anos tem direito à Meia-Entrada para eventos artísticos e de lazer. Aqui no estado do Rio de Janeiro, contamos ainda com a Lei Estadual RJ n° 3.364/00, que garante o benefício a todos os menores de 21 anos. \par
-	
-	\proposal Escreva a função |meia\_entrada| que receba os parâmetros:
-	\begin{enumerate} 
-		\item |idade| (|int|)
-		\item |estudante| (|bool|)
-		\item |deficiencia| (|bool|)
-		\item |baixa\_renda| (|bool|)
-	\end{enumerate}
-	informando com |True| ou |False| se a pessoa tem direito ao desconto. normal,
-    
-	\begin{lstpython}
-    >>> meia_entrada(60, False, False, False)
-    True
-    >>> meia_entrada(30, True, False False)
-    False
-    >>> meia_entrada(20, False, False, False)
-    True
-	\end{lstpython}
-	\end{problem}
-
+	Uma das ferramentas mais simples e poderosas dos computadores é a sua capacidade de tomar diferentes atitudes mediante uma condição.
 
 	\section*{Repetição}%%
 

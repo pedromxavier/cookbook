@@ -29,6 +29,13 @@
     \setboolean{pastel}{true}
 }
 
+%% Pastel
+\newboolean{round}
+\setboolean{round}{false}
+\DeclareOption{round}{%
+    \setboolean{round}{true}
+}
+
 %% Hide
 \newboolean{hide}
 \setboolean{hide}{false}
@@ -230,13 +237,25 @@
 }
 
 \newcommand\xtask[6][blue]{%%
-    \ifthenelse{\boolean{hide}}{
-        \draw [fill=gray!30, draw=gray!30, rounded corners] (#3 * \w + \w + \pxl, -#5 * \h - \h - \pyt + \param@hour * \h) rectangle (#3 * \w + \w + #4 * \w + \pxl, -#5 * \h - #6 * \h - \h - \pyt + \param@hour * \h) node[midway, align=center] {};
-    }{%%
-        \ifthenelse{\boolean{pastel}}{
-            \draw [fill=\pastel{#1}, draw=\pastel{#1}, rounded corners] (#3 * \w + \w + \pxl, -#5 * \h - \h - \pyt + \param@hour * \h) rectangle (#3 * \w + \w + #4 * \w + \pxl, -#5 * \h - #6 * \h - \h - \pyt + \param@hour * \h) node[midway, align=center] {#2};
+    \ifthenelse{\boolean{round}}{
+        \ifthenelse{\boolean{hide}}{
+            \draw [fill=gray!30, draw=gray!30, rounded corners] (#3 * \w + \w + \pxl, -#5 * \h - \h - \pyt + \param@hour * \h) rectangle (#3 * \w + \w + #4 * \w + \pxl, -#5 * \h - #6 * \h - \h - \pyt + \param@hour * \h) node[midway, align=center] {};
         }{%%
-            \draw [fill=#1, draw=#1, rounded corners] (#3 * \w + \w + \pxl, -#5 * \h - \h - \pyt + \param@hour * \h) rectangle (#3 * \w + \w + #4 * \w + \pxl, -#5 * \h - #6 * \h - \h - \pyt + \param@hour * \h) node[midway, align=center] {#2};
+            \ifthenelse{\boolean{pastel}}{
+                \draw [fill=\pastel{#1}, draw=\pastel{#1}, rounded corners] (#3 * \w + \w + \pxl, -#5 * \h - \h - \pyt + \param@hour * \h) rectangle (#3 * \w + \w + #4 * \w + \pxl, -#5 * \h - #6 * \h - \h - \pyt + \param@hour * \h) node[midway, align=center] {#2};
+            }{%%
+                \draw [fill=#1, draw=#1, rounded corners] (#3 * \w + \w + \pxl, -#5 * \h - \h - \pyt + \param@hour * \h) rectangle (#3 * \w + \w + #4 * \w + \pxl, -#5 * \h - #6 * \h - \h - \pyt + \param@hour * \h) node[midway, align=center] {#2};
+            }
+        }
+    }{
+        \ifthenelse{\boolean{hide}}{
+            \draw [fill=gray!30, draw=gray!30] (#3 * \w + \w + \pxl, -#5 * \h - \h - \pyt + \param@hour * \h) rectangle (#3 * \w + \w + #4 * \w + \pxl, -#5 * \h - #6 * \h - \h - \pyt + \param@hour * \h) node[midway, align=center] {};
+        }{%%
+            \ifthenelse{\boolean{pastel}}{
+                \draw [fill=\pastel{#1}, draw=\pastel{#1}] (#3 * \w + \w + \pxl, -#5 * \h - \h - \pyt + \param@hour * \h) rectangle (#3 * \w + \w + #4 * \w + \pxl, -#5 * \h - #6 * \h - \h - \pyt + \param@hour * \h) node[midway, align=center] {#2};
+            }{%%
+                \draw [fill=#1, draw=#1] (#3 * \w + \w + \pxl, -#5 * \h - \h - \pyt + \param@hour * \h) rectangle (#3 * \w + \w + #4 * \w + \pxl, -#5 * \h - #6 * \h - \h - \pyt + \param@hour * \h) node[midway, align=center] {#2};
+            }
         }
     }
 }

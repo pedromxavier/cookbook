@@ -1,8 +1,8 @@
 %% Usando cores pasteis em Português do Brasil
-\documentclass[br, pastel]{week}
+\documentclass[br, pastel, round]{week}
 
 %% Título e subtítulo
-\title{Horários do Pedro 2020.2 {\Large v1.0}}
+\title{Horários do Pedro 2020.2 {\Large v1.2}}
 \subtitle{(22 mar. - 12 jun. 2021)}
 
 %% Horas do seu dia
@@ -18,25 +18,39 @@
         %% e assim por diante.
 
         %% \xtask[<cor>]{<titulo>}{<dia>}{<dias>}{<hora>}{<horas>}
-        \xtask[brown]{Café \& Secretaria}{1}{5}{6}{2}%
+        \xtask[brown]{Café \& Planejamento}{1}{5}{6}{2}%
+        \task[brown]{Planejamento}{0}{19}{2}%
 
         %% \xtask[<cor>]{<titulo>}{<dia>}{<hora>}{<horas>}
         \task[cyan]{Redes II}{1}{10}{2}%
         \task[cyan]{Redes II}{3}{10}{2}%
 
-        %% Em nomes grandes pode ser preciso usar '\\' para qubra de linha.
+        \task[darkpurple]{Computação FAU}{3}{12}{1}%
+
+        \task[darkpurple]{MONITORIA\\~\\ Computação FAU\\ \&\\ Computação Gráfica}{1}{14}{3}
+
+        %% Em nomes grandes pode ser preciso usar '\\' para quebra de linha.
         \task[blue]{Qualidade de\\ Software}{2}{10}{2}%
         \task[blue]{Qualidade de\\ Software}{4}{10}{2}%
-        \task[darkblue]{Monitoria\\ Computação Gráfica}{5}{9}{2}
+        
 
         %% Use esse comando para atividades que se expandem horizontalmente.
-        \xtask[brown]{Almoço}{1}{5}{12}{1}%
+        \xtask[brown]{Almoço}{1}{2}{12}{1}%
+        \xtask[brown]{Almoço}{3}{1}{13}{1}%
+        \xtask[brown]{Almoço}{4}{2}{12}{1}%
 
         \task[yellow]{Álgebra Linear III}{2}{13}{2}%
         \task[yellow]{Álgebra Linear III}{4}{13}{2}%
         
         %% Também é possível usar horas quebradas sem problemas.
         \task[darkgreen]{Empreendedorismo}{5}{13.5}{4}%
+
+        \task[deepblue]{Descanso}{5}{18}{5}%
+        \task[deepblue]{Descanso}{6}{5}{13}%
+
+        \task[green!50!gray]{Arrumação}{6}{19}{2}%
+        \task[green!50!gray]{Arrumação}{5}{10}{2}%
+        \task[green!50!gray]{Arrumação}{4}{15}{2}%
 
         \task[orange]{Reunião\\ Priscila}{2}{15}{2}%
 

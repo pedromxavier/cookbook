@@ -1,4 +1,41 @@
-\chapter{Estruturas, Sequências e Condicionais}
-    \section*{Encadeamento de ideias}
+\chapter[c:numeros]{Números}
 
-   
+    Este capítulo é opcional.
+
+    \section*{Inteiros}
+
+    Além de fazer contas
+
+    \section*{Ponto-flutuante}
+    
+    
+	
+    Agora é importante falar um pouco mais sobre o nosso antigo conhecido, o |float|. Existe um padrão industrial, o \textbf{IEE 754}, que especifica como deve ser feita a representação numérica em ponto-flutuante. \par
+    
+    O padrão afirma que o |float| deve possuir três partes:	o \textit{bit} do sinal, o expoente, e a mantissa (ou fração). O número é positivo quando o primeiro \textit{bit} é 0, e negativo quando é 1. O tamanho do expoente e da mantissa depende de diversos fatores, como o projeto do processador, a linguagem de programação e até mesmo das decisões do programador. \par
+    
+    \begin{figure}[h]
+        \centering
+        \small
+        |0 01111000 0100000000000000000000|
+        \caption{O número 0.15625 no padrão IEE 754, precisão simples.}
+        \label{f:iee754}
+    \end{figure}
+    
+    É possível fazer uma analogia com a notação científica. Vamos observar o número de moléculas em um mol de uma substância qualquer:
+        $$1 \text{mol} = 6.02 \times 10^{23}$$
+    De maneira imediata, podemos separar esse número em três partes também: o sinal ($+$), o expoente (23), e a mantissa (6.02). \par
+    
+    É importante entender que as representações em ponto-flutuante tem suas limitações. Algumas delas são:
+    
+    \begin{itemize}
+        \item Somar ou subtrair números muito grandes com números muitos pequenos resultará numa \textit{adição ou subtração catastrófica}, isto é, o número menor pode acabar sendo ignorado durante a operação.
+    
+        \item A mantissa é composta pela soma de potências de $\frac{1}{2}$, portanto números que não são resultado de somas finitas dessas potências vão apresentar erros de representação.
+    \end{itemize}
+
+    \section*{Complexos}
+
+    \section*{Vetores}
+    
+    
