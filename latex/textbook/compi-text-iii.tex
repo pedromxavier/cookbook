@@ -1,6 +1,28 @@
 \chapter[c:strings]{\textit{Strings} e Texto}
     
-    \section*{Codificação}
+    De modo geral, \textit{strings} são o principal tipo básico presente nas linguagens de programação para representar textos. Os literais que representam texto em Python são aqueles compreendidos entre aspas simples |'| ou duplas |"|. Não existe preferência absoluta por uma ou outra, fica a seu critério qual utilizar. No entanto, uma opção pode ser feita pela praticidade ao trabalhar com texto que contenha algum destes caracteres.\par
+
+    \begin{pyprompt}
+        >>> historia = "Era uma vez..."
+        >>> print(historia)
+        §Era uma vez...§
+    \end{pyprompt}
+
+    \section*{Codificação}%%
+    Vamos discorrer rapidamente sobre os aspectos fundamentais da codificação de texto em computadores. As cadeias de caracteres ou simplesmente \textit{strings} nada mais são do que sequências que comportam um tipo específico de dado, um número a representar determinado símbolo.\par
+
+    Existem diversos "alfabetos" para a codificação de caracteres, sendo a \emph{Tabela ASCII}\footnote{\textit{American Standard Code for Information Interchange.}} desenvolvida na década de 1960 uma das precursoras dentre estas tecnologias. De fato, os padrões de codificação amplamente utilizados na atualidade configuram extensões do seu conjunto inicial de 128 símbolos.\par
+
+    Como um byte possui 8 bits e somente 7 são necessários para representar todas as entradas da tabela, sobra um bit para usos outros, a depender da implementação em voga. O padrão Unicode\cite{unicode:2020}, particularmente em sua especificação \emph{UTF-8}\footnote{\textit{Unicode Transformation Format} em 8 bits.}, utiliza este bit adicional para indicar se serão necessários bytes adicionais na codificação ou não. Precisamente, o último bit indica se determinado caractere está presente nos 128 itens da \emph{Tabela ASCII}.\par
+
+    O \emph{UTF-8} se encontra em cerca de 97\% das páginas da internet\cite{w3techs:2021}. O padrão utiliza de um a quatro bytes, o que permite representar mais de 2000 símbolos com apenas 2 bytes, o suficiente para cobrir todos os alfabetos latinos, do grego ao cirílico. Com os bytes extras codifica-se o chinês, tradicional e moderno, o coreano, o japonês, o sânscrito e a maioria das línguas orientais. Com quatro bytes é possível descrever símbolos cuneiformes, hieróglifos e sua encarnação contemporânea: os emoji.\par
+
+    \begin{problem}{Transformações ASCII}%%
+    Da maneira como foi construída, a Tabela ASCII nos permite realizar transformações comuns ao texto de uma maneira bem simples. No Python, é proposta uma interface com a tabela através das funções |ord| e |chr|. |ord| recebe um símbolo e diz qual é sua posição na tabela de codificação através de um número inteiro. Já |chr| nos diz qual caractere ocupa a posição dada pelo inteiro que recebe. Ou seja, uma é inversa da outra, de forma que |chr(ord(c)) = c| para qualquer símbolo |c|. Naturalmente, também vale a recíproca.\par
+
+    \proposal Procure entender a disposição das letras de \emph{a} a \emph{z} e utilizando as funções |ord| e |chr| defina um par de funções que transforme textos quaisquer em sequências de caixa alta e caixa baixa, respectivamente.
+
+    \end{problem}
 
     \section*{Operações em texto}
 
