@@ -1,5 +1,9 @@
 \ProvidesPackage{textbook-config}
+    \RequirePackage{datetime}
     %%%% -------- PARAMETERS ---------
+    \newcommand{\city}[1]{\renewcommand\@city{#1}}%%
+    \newcommand\@city{~}%%
+
     \newcommand{\subtitle}[1]{\renewcommand\@subtitle{\sffamily #1}}%%
     \newcommand\@subtitle{~}%%
 
@@ -21,6 +25,13 @@
     \renewcommand{\title}[1]{\renewcommand\@title{\HUGE\textsc #1}}
 
     %%%% ------ DOCUMENT CONSTANTS ------
-    \renewcommand{\baselinestretch}{1.15} 
+    \renewcommand{\baselinestretch}{1.15}
 
+    \newcommand{\monthyear}{
+        \ifthenelse{\equal{\@ulang}{br}}{%% IF THEN
+            \monthname[\THEMONTH] de \THEYEAR%%
+        }{%% ELSE
+            \monthname[\THEMONTH], \THEYEAR%%
+        }
+    } 
 \endinput

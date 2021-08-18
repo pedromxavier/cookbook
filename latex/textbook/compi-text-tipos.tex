@@ -57,17 +57,17 @@
 
 	Seguindo adiante, vamos tratar de alguns tipos de sequências. Temos disponíveis três tipos básicos de estruturas sequenciais: listas |list|, tuplas |tuple| e \textit{strings} |str|. As duas primeiras são estruturas de uso geral e servem para armazenar de maneira ordenada elementos de qualquer tipo, incluindo os números e até mesmo outras sequências. As \textit{strings} são projetadas para armazenar sequências de caracteres, ou seja, texto. \par
 
-	As listas são delimitadas por colchetes |[]| e seus elementos são separados por vírgulas. As tuplas, por sua vez, utilizam parênteses |()| e tem um comportamento semelhante. As diferenças entre as duas serão esmiuçadas adiante, no capítulo \ref{c:estruturas}. Por fim, as \textit{strings} são compostas pelos caracteres inseridos entre aspas, sejam elas simples |''| ou duplas |""|.\par
+	As listas são delimitadas por colchetes |[]| e seus elementos são separados por vírgulas. As tuplas, por sua vez, utilizam parênteses |()| e tem um comportamento semelhante. As diferenças entre as duas serão esmiuçadas adiante, no capítulo \ref{c:sequencias}. Por fim, as \textit{strings} são compostas pelos caracteres inseridos entre aspas, sejam elas simples |''| ou duplas |""|.\par
 
 	Assim como no caso dos números, é possível transformar listas em tuplas e vice-versa, utilizando as funções |list| e |tuple|. As transformações envolvendo as \textit{strings} e seu tipo |str|, no entanto, possuem um comportamento distinto. Qualquer elemento de qualquer tipo pode ser transformado em \textit{string}, o que consiste em obter uma representação visual para o mesmo. O processo contrário, de transformar \textit{strings} em outros tipos deve ser analisado caso-a-caso. \par
 
-	A operação fundamental entre sequências é a concatenação |+|. Não é possível, contudo, concatenar cadeias de tipos distintos.
+	Uma das principais operações entre sequências é a concatenação |+|. Concatenar, que não é uma palavra muito comum no dia a dia, significa unir duas sequências por justaposição, isto é, respeitando a ordenação inicial. Não é possível, contudo, concatenar cadeias de tipos distintos.\par
 
 	\begin{pyprompt}
-	>>> [1, 2, 3, 4, 5]
-	§[1, 2, 3, 4, 5]§
-	>>> 1, 2, 3, 4, 5
-	§(1, 2, 3, 4, 5)§
+	>>> [-3, -2, -1] + [1, 2, 3]
+	§[-3, -2, -1, 1, 2, 3]§
+	>>> "Nome" + " " + "Sobrenome"
+	"Nome Sobrenome"
 	\end{pyprompt}
 	
 	\section*{Variáveis e atribuição}%%

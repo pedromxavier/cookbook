@@ -1,0 +1,74 @@
+[
+    {
+        "name": "BIM - Revit",
+        "day": 2,
+        "days": 1,
+        "hour": 8,
+        "hours": 2,
+        "color": "deepblue"
+    },
+    {
+        "name": "BIM - Revit",
+        "day": 4,
+        "days": 1,
+        "hour": 8,
+        "hours": 2,
+        "color": "deepblue"
+    },
+    {
+        "name": "Sistemas\\\\Distribuídos",
+        "day": 2,
+        "days": 1,
+        "hour": 10,
+        "hours": 2,
+        "color": "blue"
+    },
+    {
+        "name": "Sistemas\\\\Distribuídos",
+        "day": 4,
+        "days": 1,
+        "hour": 10,
+        "hours": 2,
+        "color": "blue"
+    },
+    {
+        "name": "PowerPointers",
+        "day": 1,
+        "days": 1,
+        "hour": 20,
+        "hours": 1.5,
+        "color": "red"
+    },
+    {
+        "name": "TCC",
+        "day": 2,
+        "days": 1,
+        "hour": 15,
+        "hours": 1,
+        "color": "green"
+    },
+    {
+        "name": "Trabalho do Futuro",
+        "day": 1,
+        "days": 1,
+        "hour": 13,
+        "hours": 4,
+        "color": "orange"
+    },
+    {
+        "name": "Gestão do\\\\Conhecimento",
+        "day": 3,
+        "days": 1,
+        "hour": 8,
+        "hours": 4,
+        "color": "yellow"
+    },
+    {
+        "name": "Antropologia\\\\Cultural",
+        "day": 3,
+        "days": 1,
+        "hour": 18.5,
+        "hours": 2.5,
+        "color": "darkgreen"
+    }
+]
